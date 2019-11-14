@@ -6,7 +6,8 @@ namespace Hej_Morsan_Projekt
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Hej morsan!!");
+            Console.WriteLine("Hej morsan!!");
         }
     }
 }
