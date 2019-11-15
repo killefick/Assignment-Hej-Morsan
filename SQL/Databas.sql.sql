@@ -36,15 +36,25 @@ CREATE PROCEDURE AddPerson
 @Birthday varchar(10),
 @Counter int = NULL
 AS
-INSERT INTO Persons (Name, Phone, Birthday, Counter)
-VALUES (@Name, @Phone, @Birthday, @Counter
+INSERT INTO Persons 
+(Name, 
+Phone, 
+Birthday, 
+Counter)
+VALUES (
+@Name,
+@Phone,
+@Birthday, 
+@Counter
 )
 GO
 
+select * from persons
+go
 exec AddPerson 'Pelle', '073-123456', '2019-08-09', 5 
 
 
--- DeletePerson
+-- DeletePerson (lägg index på name!)
 DROP PROCEDURE IF EXISTS DeletePerson
 GO
 CREATE PROCEDURE DeletePerson 
