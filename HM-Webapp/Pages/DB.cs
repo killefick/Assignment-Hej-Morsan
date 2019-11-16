@@ -16,21 +16,21 @@ namespace Hej_Morsan_Projekt
 
         // public method to call from application
         // IEnumerable: allows looping over generic or non-generic lists
-        public IEnumerable<Persons> GetPersons()
+        public IEnumerable<Person> GetPersons()
         {
             // connects to the database
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 // connection.Query<xxx> allows multiple rows 
                 // connection.QueryFirst<xxx> allows only one row
-                return connection.Query<Persons>("EXEC GetPersons");
+                return connection.Query<Person>("EXEC GetPersons");
             }
         }
     }
-    // Create a class that maps to our SQL Table 
+    // Create a PUBLIC class that maps to our SQL Table 
     // (or the QUERY – table contains more than that!)
     // Columns not mentioned in class will be ignored
-    class Persons
+    public class Person
     {
         public int Id { get; set; }
         public string Name { get; set; }
