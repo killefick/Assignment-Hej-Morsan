@@ -1,5 +1,7 @@
 USE Student13
 
+select * from persons
+
 DROP TABLE IF EXISTS Persons
 GO
 
