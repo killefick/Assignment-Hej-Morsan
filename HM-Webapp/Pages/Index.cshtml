@@ -18,21 +18,33 @@
         <th></th>
       </tr>
     </thead>
-    <tbody>
 
 <!-- print persons from list -->
+    <tbody>
 @foreach (var item in @Model.myPersons)
 {
-      <tr>
+  string barColor = "bg-success";
+  <!-- change color på progress bar -->
+  
+  int counter = Convert.ToInt32(@item.Counter);
+  @if(counter < 0)
+      {
+        barColor = "bg-danger";
+      }
+  else if (counter < 3)
+      {
+        barColor = "bg-warning";
+      }
+        <tr>
         <td>@item.Name</td>
         <td><button type="button" class="btn btn-info">@item.Phone</button></td>
         <td>@item.Birthday</td>
-        <!-- FIXME: change to variable so background is responsive to counter -->
-        <td class="bg-success"><h5>@item.Counter</h5></td>
+        <td class=@barColor><h5>@item.Counter</h5></td>
         <td><button type="button" class="btn btn-info ">Ändra</button></td>
-        <td><button type="button" class="btn btn-danger">X</button></a></td>
-      </tr>     
+        <td><button type="button" class="btn btn-danger">X</button></td>
+        </tr>
 }
+
     </tbody>
   </table>
 </div>

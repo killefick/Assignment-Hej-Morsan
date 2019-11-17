@@ -33,6 +33,16 @@ INSERT INTO Persons
 VALUES
 	('Syrran', '077-277 77 24', '2008-11-11', 12)
 GO
+INSERT INTO Persons
+	(Name, Phone, Birthday, Counter)
+VALUES
+	('Olle', '077-277 77 24', '2008-11-11', -1)
+GO
+INSERT INTO Persons
+	(Name, Phone, Birthday, Counter)
+VALUES
+	('Lasse', '077-277 77 24', '2008-11-11', 1)
+GO
 
 
 -- AddPerson
