@@ -80,7 +80,7 @@ CREATE OR ALTER  PROCEDURE DeletePerson
 AS
 DELETE
 FROM Persons
-WHERE Id = @Id
+WHERE Id = @Id-1
 GO
 
 EXEC DeletePerson 4
