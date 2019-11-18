@@ -10,6 +10,7 @@
   <table class="table">
     <thead>
       <tr>
+        <th display="none">Id</th>
         <th>Namn</th>
         <th>Skicka SMS</th>
         <th>Födelsedag</th>
@@ -36,6 +37,7 @@
         barColor = "bg-warning";
       }
         <tr>
+        <td display="none">@item.Id</td>
         <td>@item.Name</td>
         <td><button type="button" class="btn btn-info">@item.Phone</button></td>
         <td>@item.Birthday</td>
@@ -47,10 +49,3 @@
     </tbody>
   </table>
 </div>
-
-
-
-<script>
-function myFunction() {
-}
-</script>
