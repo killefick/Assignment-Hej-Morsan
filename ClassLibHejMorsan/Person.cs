@@ -17,10 +17,12 @@ namespace ClassLibHejMorsan
 
         public static void DeletePerson(int idToDelete)
         {
+            var db = new DB("Server=40.85.84.155;Database=Student13;User=Student13;Password=YH-student@2019;");
+
             using (SqlConnection connection = new SqlConnection("Server=40.85.84.155;Database=Student13;User=Student13;Password=YH-student@2019;"))
             {
                 int id = idToDelete;
-                connection.Query<Person>("EXEC DeletePerson" + id);
+                connection.Query<Person>("EXEC DeletePerson " + id);
             }
         }
     }
