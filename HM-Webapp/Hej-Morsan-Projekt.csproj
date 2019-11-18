@@ -14,4 +14,9 @@
     <PackageReference Include="system.data.sqlclient" Version="4.7.0" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <ProjectReference Include="..\ClassLibHejMorsan\ClassLibHejMorsan.csproj" />
+  </ItemGroup>
+
 </Project>
