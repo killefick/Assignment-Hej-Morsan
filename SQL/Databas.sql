@@ -111,7 +111,7 @@ FROM
 GO
 
 
--- GetAllPersons
+-- GetPersons
 CREATE OR ALTER PROCEDURE GetPersons
 AS
 SELECT

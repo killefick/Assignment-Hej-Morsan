@@ -24,8 +24,8 @@
 @foreach (var item in @Model.myPersons)
 {
   string barColor = "bg-success";
-  <!-- change color på progress bar -->
   
+  <!-- change color på progress bar -->
   int counter = Convert.ToInt32(@item.Counter);
   @if(counter < 0)
       {
@@ -44,7 +44,6 @@
         <td><button type="button" class="btn btn-danger">X</button></td>
         </tr>
 }
-
     </tbody>
   </table>
 </div>
