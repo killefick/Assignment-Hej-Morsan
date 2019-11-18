@@ -1,7 +1,9 @@
 ﻿@page 
 @model IndexModel
+
 @{
     ViewData["Title"] = "Home";
+    var person = new ClassLibHejMorsan.Person();
 }
  <a href="/Index"><img alt="Hem" src="/img/morsan_small.png" width="300"></a>
 
@@ -42,8 +44,8 @@
         <td><button type="button" class="btn btn-info">@item.Phone</button></td>
         <td>@item.Birthday</td>
         <td class=@barColor><h5>@item.Counter</h5></td>
-        <td><button onclick="myFunction()" type="button" class="btn btn-info">Ändra</button></td>
-        <td><button onclick="myFunction()" type="button" class="btn btn-danger">X</button></td>
+        <td> <a href="/DeletePerson" class="btn btn-info" role="button">Ändra</a></td>
+        <td><button type="button" class="btn btn-danger">X</button></td>
         </tr>
 }
     </tbody>

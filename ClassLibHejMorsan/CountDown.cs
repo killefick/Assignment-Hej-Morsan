@@ -1,34 +1,35 @@
-// Everything handling The Countdowns
-class CountDown
+namespace ClassLibHejMorsan
 {
-
-int InitialDays=3;
-int CountDownTick=3;
-int  CountDownOverdue=0;
+    // Everything handling The Countdowns
+    class CountDown
+    {
+        int InitialDays = 3;
+        int CountDownTick = 3;
+        int CountDownOverdue = 0;
 
         // Decreases the countdown
         public void decrease()
-            {
-                CountDownTick--;
-            }
+        {
+            CountDownTick--;
+        }
         // Is it time to call mom?
         public bool TimeToCallMom()
-            {
-            if(CountDownTick==0)
+        {
+            if (CountDownTick == 0)
             {
                 System.Console.WriteLine("Time To call mom");
                 return true;
             }
-            else if (CountDownTick <0)
+            else if (CountDownTick < 0)
             {
                 return true;
             }
             return false;
-            }
+        }
         // If you don't call mom this starts to tick
         public int Overdue()
         {
-            if(CountDownTick<=-1)
+            if (CountDownTick <= -1)
             {
                 CountDownOverdue++;
             }
@@ -43,16 +44,19 @@ int  CountDownOverdue=0;
         // Switch to handle choices, you either call mom or ignore her
         public void ChooseToCallMom(int choice)
         {
-        switch(choice)
+            switch (choice)
             {
                 case 1:
-                {
-                    MomHasBeenCalled();
-                }break;
+                    {
+                        MomHasBeenCalled();
+                    }
+                    break;
                 case 0:
-                {
-                    Overdue();
-                }break;
+                    {
+                        Overdue();
+                    }
+                    break;
             }
         }
+    }
 }
