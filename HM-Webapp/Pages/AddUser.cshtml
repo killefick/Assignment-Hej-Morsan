@@ -1,0 +1,32 @@
+﻿@page
+@model Hej_Morsan_Projekt.Pages.AddUserModel
+@{
+}
+ <a href="/Index"><img alt="Hem" src="/img/morsan_small.png" width="300"></a>
+
+<div class="container">
+  <form action="#">
+      <p></p>
+      <h3>Vem bryr du dig om?</h3>
+
+    <div class="form-group">
+      <input type="text" class="form-control" id="namn" placeholder="Namn" name="namn">
+    </div>
+
+    <div class="form-group">
+      <input type="text" class="form-control" id="birthday" placeholder="Födelsedag" name="birthday">
+    </div>
+
+    <div class="form-group">
+      <input type="number" class="form-control" id="phone" placeholder="Mobilnummer" name="phone">
+    </div>
+    
+    <div class="form-group">
+      <input type="number" class="form-control" id="counter" placeholder="Mors-O-Meter (antal dagar mellan hälsningarna)" name="counter">
+    </div>
+
+    <button type="submit" class="btn btn-info">Spara</button>
+  </form>
+</div>
+
+
