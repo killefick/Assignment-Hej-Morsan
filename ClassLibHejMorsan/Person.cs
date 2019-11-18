@@ -10,10 +10,12 @@ namespace ClassLibHejMorsan
     public class Person
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string name { get; set; }
         public string Phone { get; set; }
         public string Birthday { get; set; }
-        public int Counter { get; set; }
+        public int initialDays { get; set; }
+        public int CountDownTick { get; set; }
+        public int CountDownOverdue = 0;
 
         public static void DeletePerson()
         {
@@ -23,6 +25,57 @@ namespace ClassLibHejMorsan
             {
                  connection.Query<Person>("EXEC DeletePerson 4");
                 
+            }
+        }
+
+                // Decreases the countdown
+        public void decrease()
+        {
+            CountDownTick--;
+        }
+        // Is it time to call mom?
+        public bool TimeToCallMom()
+        {
+            if (CountDownTick == 0-1)
+            {
+                return true;
+            }
+            else if (CountDownTick < 0-1)
+            {
+                return true;
+            }
+            return false;
+        }
+        // If you don't call mom this starts to tick
+        public int Overdue()
+        {
+            if (CountDownTick <= -1)
+            {
+                CountDownOverdue++;
+            }
+            return CountDownOverdue;
+        }
+        // Mom has been called and the counter resets to her initialdays
+        public int MomHasBeenCalled()
+        {
+            CountDownTick = initialDays;
+            return CountDownTick;
+        }
+        // Switch to handle choices, you either call mom or ignore her
+        public void ChooseToCallMom(int choice)
+        {
+            switch (choice)
+            {
+                case 1:
+                    {
+                        MomHasBeenCalled();
+                    }
+                    break;
+                case 0:
+                    {
+                        Overdue();
+                    }
+                    break;
             }
         }
     }
