@@ -76,20 +76,20 @@ GO
 
 -- DeletePerson (lägg index på name!)
 CREATE OR ALTER  PROCEDURE DeletePerson
-	@Name varchar(50)
+	@Id int
 AS
 DELETE
 FROM Persons
-WHERE Name = @Name
+WHERE Id = @Id
 GO
 
-EXEC DeletePerson 'Pelle'
+EXEC DeletePerson 4
 GO
 
 
 -- UpdatePerson
 CREATE OR ALTER PROCEDURE UpdatePerson
-	@PersonToChange varchar(50),
+	@Id int,
 	@Name varchar(50),
 	@Phone varchar(20),
 	@Birthday varchar(10),
@@ -100,14 +100,7 @@ SET Name = @Name,
 	Phone = @Phone, 
 	Birthday = @Birthday,
 	Counter = @Counter
-WHERE Name = @PersonToChange
-GO
-
-EXEC UpdatePerson 'Syrran','Pelle','077-277 77 24', '2008-11-11', 12
-SELECT
-	*
-FROM
-	persons
+WHERE Id = @Id
 GO
 
 
@@ -115,6 +108,7 @@ GO
 CREATE OR ALTER PROCEDURE GetPersons
 AS
 SELECT
+	Id,
 	Name,
 	Phone,
 	Birthday,
