@@ -115,6 +115,7 @@ GO
 CREATE OR ALTER PROCEDURE GetPersons
 AS
 SELECT
+	Id,
 	Name,
 	Phone,
 	Birthday,
