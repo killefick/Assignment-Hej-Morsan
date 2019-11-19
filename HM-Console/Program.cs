@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace HM_Console
+namespace ClassLibHejMorsan
 {
     class Program
     {
