@@ -1,15 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using ClassLibHejMorsan;
-
-namespace HM_Console
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-
             //Creating some object to be added to the list, this list is to offer some indata when showing the program.
             // To be deleted
             Person Mamma = new Person();
