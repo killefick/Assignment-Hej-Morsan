@@ -59,7 +59,6 @@
 //             }
 //         }
 // }
-=======
 namespace ClassLibHejMorsan
 {
     // Everything handling The Countdowns
