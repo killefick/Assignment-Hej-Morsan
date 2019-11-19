@@ -6,4 +6,8 @@
     <RootNamespace>HM_Console</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ClassLibHejMorsan\ClassLibHejMorsan.csproj" />
+  </ItemGroup>
+
 </Project>

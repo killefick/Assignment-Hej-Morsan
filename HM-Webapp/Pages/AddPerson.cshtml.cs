@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Hej_Morsan_Projekt.Pages
 {
-    public class AddUserModel : PageModel
+    public class AddPersonModel : PageModel
     {
         public void OnGet()
         {
