@@ -11,7 +11,7 @@ namespace ClassLibHejMorsan
     {
         static void Main(string[] args)
         {
-            string s = "";
+            string s = "prutt";
             CountDown newCountdown = new CountDown();
             int day = 0;
             Person.GetPersons();
