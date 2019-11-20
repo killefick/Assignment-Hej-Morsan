@@ -26,6 +26,19 @@ namespace ClassLibHejMorsan
                 // connection.QueryFirst<xxx> allows only one row
                 return connection.Query<Person>("EXEC GetPersons");
             }
+            
         }
+        public IEnumerable<Person> AddPerson(string name, int counter)
+        {
+            // connects to the database
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                // connection.Query<xxx> allows multiple rows 
+                // connection.QueryFirst<xxx> allows only one row
+                return connection.Query<Person>($"EXEC AddPerson {name} {counter}");
+            }
+            
+        }
+
     }
 }
