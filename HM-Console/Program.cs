@@ -14,16 +14,15 @@ namespace ClassLibHejMorsan
         {
             CountDown newCountdown = new CountDown();
             int day = 0;
-            test
             Person.GetPersons();
+
             while (true)
             {
+                Console.Clear();
                 day++; //öka dagarna
-
                 //Skrivs ut i Main
                 Console.WriteLine("Det är dag " + day + ":");
                 Console.WriteLine("-------");
-
 
                 foreach (var person in DB.myPersons)
                 {
