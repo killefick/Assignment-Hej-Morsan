@@ -5,13 +5,13 @@ using System.Data.SqlClient;
 using Dapper;
 using ClassLibHejMorsan;
 
-git är skit
 namespace ClassLibHejMorsan
 {
     class Program
     {
         static void Main(string[] args)
         {
+            string s = "";
             CountDown newCountdown = new CountDown();
             int day = 0;
             Person.GetPersons();
