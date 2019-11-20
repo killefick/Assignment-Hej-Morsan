@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using Dapper;
 using ClassLibHejMorsan;
 
-
+git är verkligen skit
 namespace ClassLibHejMorsan
 {
     class Program
