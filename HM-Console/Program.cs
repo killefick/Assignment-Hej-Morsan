@@ -14,6 +14,7 @@ namespace ClassLibHejMorsan
         {
             CountDown newCountdown = new CountDown();
             int day = 0;
+            test
             Person.GetPersons();
             while (true)
             {
