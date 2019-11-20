@@ -4,22 +4,12 @@ namespace ClassLibHejMorsan
     public class CountDown
     {
 
-        public bool LoopThroughList()
-        {
-            bool timeToCall = false;
-            foreach (var item in DB.myPersons)
-            {
-                timeToCall = TimeToCallMom(item);
-            }
-            return timeToCall;
-        }
-
         // Is it time to call mom?
         public bool TimeToCallMom(Person Person)
         {
             Person.CountDownTick--;
 
-            if (Person.CountDownTick <= 0)
+            if (Person.CountDownTick <= -1)
             {
                 return true;
             }
@@ -45,11 +35,9 @@ namespace ClassLibHejMorsan
         public int MomHasBeenCalled(Person Person)
         {
             int number = 0;
-            foreach (var item in DB.myPersons)
-            {
-                item.CountDownTick = item.initialDays;
-                number = item.CountDownTick;
-            }
+            Person.CountDownTick = Person.Counter;
+            number = Person.CountDownTick;
+
             return number;
         }
 
