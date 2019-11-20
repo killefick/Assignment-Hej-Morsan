@@ -10,10 +10,6 @@ namespace ClassLibHejMorsan
 
     public class Person
     {
-        // List is supposed to be static because the list is global.
-        public static List<Person> myPersons = new List<Person>();
-
-
         public int Id { get; set; }
         public string name { get; set; }
         public string Phone { get; set; }
@@ -41,7 +37,7 @@ namespace ClassLibHejMorsan
             // adds persons from databas to list
             foreach (var item in db.GetPersons())
             {
-                myPersons.Add(item);
+                DB.myPersons.Add(item);
             }
         }
     }

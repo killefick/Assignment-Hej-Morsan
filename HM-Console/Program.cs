@@ -12,8 +12,9 @@ namespace ClassLibHejMorsan
     {
         static void Main(string[] args)
         {
-        CountDown newCountdown = new CountDown();
+            CountDown newCountdown = new CountDown();
             int day = 0;
+
             while (true)
             {
                 day++; //öka dagarna
@@ -21,28 +22,31 @@ namespace ClassLibHejMorsan
                 //Skrivs ut i Main
                 Console.WriteLine("Det är dag " + day + ":");
                 Console.WriteLine("-------");
-        Person.GetPersons();
-        
+                Person.GetPersons();
 
-            newCountdown.RunCountDown();
-            if (newCountdown.TimeToCall())
-                    {
-                        
-                        int choice;
-                        //Skall flyttas till main för att skrivas ut genom variabeln.
-                        System.Console.WriteLine($"Time to call {newCountdown.currentPerson.name}");
-                        System.Console.WriteLine("Press 1 to call.");
-                        try
-                        {
-                            choice = int.Parse(Console.ReadLine());
-                        }
-                        catch
-                        {
-                           System.Console.WriteLine($"You chose to not call {newCountdown.currentPerson.name}\n");
-                            choice = 0;
-                        }
-                        newCountdown.ChooseToCallMom(choice);
-                    }
+                if (newCountdown.LoopThroughList())
+                {
+                    Console.WriteLine("hej");
+                }
+
+                // if (newCountdown.TimeToCallMom())
+                // {
+
+                //     int choice;
+                //     //Skall flyttas till main för att skrivas ut genom variabeln.
+                //     System.Console.WriteLine($"Time to call {newCountdown.currentPerson.name}");
+                //     System.Console.WriteLine("Press 1 to call.");
+                //     try
+                //     {
+                //         choice = int.Parse(Console.ReadLine());
+                //     }
+                //     catch
+                //     {
+                //         System.Console.WriteLine($"You chose to not call {newCountdown.currentPerson.name}\n");
+                //         choice = 0;
+                //     }
+                //     newCountdown.ChooseToCallMom(choice);
+                // }
             }
         }
     }
