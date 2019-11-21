@@ -19,6 +19,8 @@ CREATE TABLE Persons
 GO
 
 -- insert sample data
+CREATE PROCEDURE InitDB
+AS
 INSERT INTO Persons
 	(Name, Phone, Birthday, Counter)
 VALUES
@@ -30,23 +32,47 @@ VALUES
 INSERT INTO Persons
 	(Name, Phone, Birthday, Counter)
 VALUES
-	('Mormor', '076-224 12 24', '1914-12-12', 8)
+	('Mormor', '076-224 12 24', '1914-12-12', 1)
 INSERT INTO Persons
 	(Name, Phone, Birthday, Counter)
 VALUES
 	('Syrran', '077-277 77 24', '2008-11-11', 12)
 GO
-INSERT INTO Persons
-	(Name, Phone, Birthday, Counter)
-VALUES
-	('Olle', '077-277 77 24', '2008-11-11', -1)
-GO
-INSERT INTO Persons
-	(Name, Phone, Birthday, Counter)
-VALUES
-	('Lasse', '077-277 77 24', '2008-11-11', 1)
+
+EXEC InitDB
 GO
 
+-- Countdown 
+CREATE OR ALTER PROCEDURE Day1 
+AS
+UPDATE Persons
+set Counter = 3 WHERE Id = 1
+UPDATE Persons
+set Counter = 1 WHERE Id = 2
+UPDATE Persons
+set Counter = 0 WHERE Id = 3
+UPDATE Persons
+set Counter = 11 WHERE Id = 4
+GO
+
+EXEC Day1
+GO
+
+-- Countdown 
+CREATE OR ALTER PROCEDURE Day2 
+AS
+UPDATE Persons
+set Counter = 2 WHERE Id = 1
+UPDATE Persons
+set Counter = 0 WHERE Id = 2
+UPDATE Persons
+set Counter = -1 WHERE Id = 3
+UPDATE Persons
+set Counter = 10 WHERE Id = 4
+GO
+
+EXEC Day2
+GO
 
 -- AddPerson
 CREATE OR ALTER PROCEDURE AddPerson

@@ -12,7 +12,6 @@
   <table class="table">
     <thead>
       <tr>
-        <th display="none">Id</th>
         <th>Namn</th>
         <th>Skicka SMS</th>
         <th>Födelsedag</th>
@@ -30,7 +29,7 @@
   
   <!-- change color på progress bar -->
   int counter = Convert.ToInt32(@item.Counter);
-  @if(counter < 0)
+  @if(counter < 1)
       {
         barColor = "bg-danger";
       }
@@ -40,7 +39,7 @@
       }
         <tr>
         <td>@item.Name</td>
-        <td><button type="button" class="btn btn-info">@item.Phone</button></td>
+        <td><a href="/ResetPerson/?id=@item.Id counter=@item.Counter" class="btn btn-info" role="button">Skicka SMS</a></td>
         <td>@item.Birthday</td>
         <td class=@barColor><h5>@item.Counter</h5></td>
         <td><a href="/EditPerson" class="btn btn-info" role="button" id="@item.Id">Ändra</a></td>
