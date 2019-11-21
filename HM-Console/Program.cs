@@ -11,6 +11,7 @@ namespace ClassLibHejMorsan
     {
         static void Main(string[] args)
         {
+            ConsoleMenu StartingMenu = new ConsoleMenu();
             Person currentPerson = new Person();
             CountDown newCountdown = new CountDown();
             int day = 0;
@@ -22,7 +23,7 @@ namespace ClassLibHejMorsan
                 day++; //öka dagarna
                 //Skrivs ut i Main
                 Console.WriteLine("Det är dag " + day + ":");
-                Console.WriteLine("-------");
+                Console.WriteLine("-------\n");
 
                 foreach (var person in DB.myPersons)
                 {
@@ -47,8 +48,8 @@ namespace ClassLibHejMorsan
                     }
                     // update counter
                     currentPerson.UpdateCounter(person.Id, person.CountDownTick);
-
                 }
+                StartingMenu.StartMenu();
                 Console.ReadKey();
             }
         }
