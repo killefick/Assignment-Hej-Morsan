@@ -3,10 +3,10 @@ namespace ClassLibHejMorsan
     // Everything handling The Countdowns
     public class CountDown
     {
-
         // Is it time to call mom?
         public bool TimeToCallMom(Person Person)
         {
+            // one day less
             Person.CountDownTick--;
 
             if (Person.CountDownTick <= -1)
@@ -41,8 +41,5 @@ namespace ClassLibHejMorsan
             return number;
         }
 
-        
     }
-
-
 }

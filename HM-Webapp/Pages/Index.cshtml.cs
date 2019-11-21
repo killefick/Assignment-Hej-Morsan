@@ -1,28 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ClassLibHejMorsan;
-
 
 namespace Hej_Morsan_Projekt.Pages
 {
     public class IndexModel : PageModel
     {
-        // creates list to store persons from database 
+        // instantiate class
+        Person person = new Person();
+
+        // create list to store persons from database 
         public List<Person> myPersons = new List<Person>();
 
         public void OnGet()
         {
-            // creates connection object to connect to database
-            var db = new DB("Server=40.85.84.155;Database=Student13;User=Student13;Password=YH-student@2019;");
+            // create list with persons from database (DB.myPersons)
+            person.GetPersons();
 
-            // adds persons from databas to list
-            // foreach (var item in db.GetPersons())
+            // create local list to be accessed via @Model 
+            foreach (var person in DB.myPersons)
             {
-                // myPersons.Add(item);
+                myPersons.Add(person);
             }
         }
     }

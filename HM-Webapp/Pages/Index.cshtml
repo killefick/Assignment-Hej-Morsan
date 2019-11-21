@@ -29,7 +29,7 @@
   string barColor = "bg-success";
   
   <!-- change color på progress bar -->
-  int counter = Convert.ToInt32(@item.initialDays);
+  int counter = Convert.ToInt32(@item.Counter);
   @if(counter < 0)
       {
         barColor = "bg-danger";
@@ -39,13 +39,12 @@
         barColor = "bg-warning";
       }
         <tr>
-        <td display="none">@item.Id</td>
-        <td>@item.name</td>
+        <td>@item.Name</td>
         <td><button type="button" class="btn btn-info">@item.Phone</button></td>
         <td>@item.Birthday</td>
         <td class=@barColor><h5>@item.Counter</h5></td>
-        <td> <a href="/DeletePerson" class="btn btn-info" role="button">Ändra</a></td>
-        <td> <a href="/DeletePerson" class="btn btn-danger" role="button">X</a></td>
+        <td><a href="/EditPerson" class="btn btn-info" role="button" id="@item.Id">Ändra</a></td>
+        <td><a href="/DeletePerson/?id=@item.Id" class="btn btn-danger" role="button">X</a></td>
         </tr>
 }
     </tbody>
