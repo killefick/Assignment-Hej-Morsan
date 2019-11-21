@@ -20,8 +20,8 @@ namespace ClassLibHejMorsan
         {
             // creates connection object to connect to database
             var db = new DB(myDB);
-
-            // adds persons from databas to list
+            DB.myPersons.Clear();
+            // adds persons from database to list
             foreach (var person in db.GetPersonsFromDB())
             {
                 DB.myPersons.Add(person);
@@ -31,11 +31,23 @@ namespace ClassLibHejMorsan
             }
         }
 
+        // method to delete person from list
+        public int DeletePerson(int id)
+        {
+            var db = new DB(myDB);
 
-        // method to update counter of a perosn
+            // deletes person from database
+            db.DeletePersonFromDB(id);
+            return id;
+        }
+
+
+        // method to update counter of a person
         public void UpdateCounter(int id, int counter)
         {
             var db = new DB(myDB);
+
+            // updates perosn on db
             db.UpdateCounterOnDB(id, counter);
         }
     }
