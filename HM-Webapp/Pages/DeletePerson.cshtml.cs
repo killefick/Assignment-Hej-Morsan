@@ -1,19 +1,22 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ClassLibHejMorsan;
+using System;
 
 namespace Hej_Morsan_Projekt.Pages
 {
     public class DeletePersonModel : PageModel
     {
+        public string getUrl { get; private set; }
+
+        // instantiate class
+        Person person = new Person();
+
         public void OnGet()
         {
-            var db = new DB("Server=40.85.84.155;Database=Student13;User=Student13;Password=YH-student@2019;");
-            // ClassLibHejMorsan.Person.DeletePerson(2);
+            // gets id on delete button
+            getUrl = Request.Query["id"];
+
+            person.DeletePerson(Convert.ToInt32(getUrl));
         }
     }
 }

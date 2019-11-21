@@ -39,5 +39,14 @@ namespace ClassLibHejMorsan
                 connection.Query<Person>($"EXEC UpdateCounter {id}, {counter}");
             }
         }
+        
+        // method to update counter of a person on database
+        public void DeletePersonFromDB(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Query<Person>($"EXEC DeletePerson {id}");
+            }
+        }
     }
 }
