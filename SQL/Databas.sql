@@ -10,65 +10,66 @@ GO
 
 CREATE TABLE Persons
 (
-	Id       int         IDENTITY(1,1),
-	Name     varchar(50) NOT NULL,
-	Phone    varchar(20) NOT NULL,
-	Birthday varchar(10),
-	Counter  int         NOT NULL
+	Id             int         IDENTITY(1,1),
+	Name           varchar(50) NOT NULL,
+	Phone          varchar(20) NOT NULL,
+	Birthday       varchar(10),
+	Counter        int         NOT NULL,
+	InitialCounter int         NOT NULL
 )
 GO
 
 -- insert sample data
-CREATE PROCEDURE InitDB
+CREATE OR ALTER PROCEDURE InitDB
 AS
 INSERT INTO Persons
-	(Name, Phone, Birthday, Counter)
+	(Name, Phone, Birthday, Counter, InitialCounter)
 VALUES
-	('Mamma', '076-234 22 24', '1954-03-23', 4)
+	('Mamma', '076-234 22 24', '1954-03-23', 4, 4)
 INSERT INTO Persons
-	(Name, Phone, Birthday, Counter)
+	(Name, Phone, Birthday, Counter, InitialCounter)
 VALUES
-	('Pappa', '072-234 24 24', '1944-06-13', 2)
+	('Pappa', '072-234 24 24', '1944-06-13', 2, 2)
 INSERT INTO Persons
-	(Name, Phone, Birthday, Counter)
+	(Name, Phone, Birthday, Counter, InitialCounter)
 VALUES
-	('Mormor', '076-224 12 24', '1914-12-12', 1)
+	('Mormor', '076-224 12 24', '1914-12-12', 1, 1)
 INSERT INTO Persons
-	(Name, Phone, Birthday, Counter)
+	(Name, Phone, Birthday, Counter, InitialCounter)
 VALUES
-	('Syrran', '077-277 77 24', '2008-11-11', 12)
+	('Syrran', '077-277 77 24', '2008-11-11', 12, 12)
 GO
 
 EXEC InitDB
 GO
 
 -- Countdown 
-CREATE OR ALTER PROCEDURE Day1 
+CREATE OR ALTER PROCEDURE Day1
 AS
 UPDATE Persons
-set Counter = 3 WHERE Id = 1
+SET Counter = 3 WHERE Id = 1
 UPDATE Persons
-set Counter = 1 WHERE Id = 2
+SET Counter = 1 WHERE Id = 2
 UPDATE Persons
-set Counter = 0 WHERE Id = 3
+SET Counter = 0 WHERE Id = 3
 UPDATE Persons
-set Counter = 11 WHERE Id = 4
+SET Counter = 11 WHERE Id = 4
 GO
 
 EXEC Day1
 GO
 
 -- Countdown 
-CREATE OR ALTER PROCEDURE Day2 
+CREATE OR ALTER PROCEDURE Day2
 AS
 UPDATE Persons
-set Counter = 2 WHERE Id = 1
+SET Counter = 2 WHERE Id = 1
 UPDATE Persons
-set Counter = 0 WHERE Id = 2
+SET Counter = 0 WHERE Id = 2
 UPDATE Persons
-set Counter = -1 WHERE Id = 3
+SET Counter = -1 WHERE Id = 3
 UPDATE Persons
-set Counter = 10 WHERE Id = 4
+SET Counter = 10 WHERE Id = 4
 GO
 
 EXEC Day2
@@ -120,10 +121,10 @@ GO
 -- UpdateCounter
 CREATE OR ALTER PROCEDURE UpdateCounter
 	@Id int,
-	@Counter int
+	@InitialCounter int
 AS
 UPDATE Persons
-SET Counter = @Counter
+SET Counter = @InitialCounter
 WHERE Id = @Id
 GO
 
@@ -137,13 +138,15 @@ CREATE OR ALTER PROCEDURE UpdatePerson
 	@Name varchar(50),
 	@Phone varchar(20),
 	@Birthday varchar(10),
-	@Counter int
+	@Counter int,
+	@InitialCounter int
 AS
 UPDATE Persons
 SET Name = @Name,
 	Phone = @Phone, 
 	Birthday = @Birthday,
-	Counter = @Counter
+	Counter = @Counter,
+	InitialCounter = @Counter
 WHERE Id = @Id
 GO
 
@@ -159,7 +162,8 @@ SELECT
 	Name,
 	Phone,
 	Birthday,
-	Counter
+	Counter,
+	InitialCounter
 FROM
 	Persons
 GO

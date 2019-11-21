@@ -34,11 +34,8 @@ namespace ClassLibHejMorsan
         // Mom has been called and the counter resets to her initialdays
         public int MomHasBeenCalled(Person Person)
         {
-            int number = 0;
             Person.CountDownTick = Person.Counter;
-            number = Person.CountDownTick;
-
-            return number;
+            return Person.CountDownTick;
         }
     }
 }

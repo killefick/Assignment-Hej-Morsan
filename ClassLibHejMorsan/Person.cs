@@ -11,6 +11,7 @@ namespace ClassLibHejMorsan
         public string Phone { get; set; }
         public string Birthday { get; set; }
         public int Counter { get; set; }
+        public int initialCounter { get; set; }
         public int CountDownTick { get; set; }
 
         string myDB = "Server=40.85.84.155;Database=Student13;User=Student13;Password=YH-student@2019;";
@@ -25,7 +26,6 @@ namespace ClassLibHejMorsan
             foreach (var person in db.GetPersonsFromDB())
             {
                 DB.myPersons.Add(person);
-
                 // sets counter variable that will decrease for each day 
                 person.CountDownTick = person.Counter;
             }
