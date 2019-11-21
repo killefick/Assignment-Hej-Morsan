@@ -19,6 +19,8 @@ CREATE TABLE Persons
 GO
 
 -- insert sample data
+CREATE PROCEDURE InitDB
+AS
 INSERT INTO Persons
 	(Name, Phone, Birthday, Counter)
 VALUES
@@ -35,6 +37,9 @@ INSERT INTO Persons
 	(Name, Phone, Birthday, Counter)
 VALUES
 	('Syrran', '077-277 77 24', '2008-11-11', 12)
+GO
+
+EXEC InitDB
 GO
 
 -- Countdown 
