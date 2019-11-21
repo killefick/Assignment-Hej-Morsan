@@ -20,9 +20,9 @@ namespace Hej_Morsan_Projekt.Pages
             var db = new DB("Server=40.85.84.155;Database=Student13;User=Student13;Password=YH-student@2019;");
 
             // adds persons from databas to list
-            foreach (var item in db.GetPersons())
+            // foreach (var item in db.GetPersons())
             {
-                myPersons.Add(item);
+                // myPersons.Add(item);
             }
         }
     }

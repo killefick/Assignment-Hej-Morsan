@@ -11,10 +11,10 @@ namespace ClassLibHejMorsan
     {
         static void Main(string[] args)
         {
-            string s = "prutt";
+            Person currentPerson = new Person();
             CountDown newCountdown = new CountDown();
             int day = 0;
-            Person.GetPersons();
+            currentPerson.GetPersons();
 
             while (true)
             {
@@ -43,7 +43,11 @@ namespace ClassLibHejMorsan
                     }
                     else
                     {
+                        // do not call
                     }
+                    // update counter
+                    currentPerson.UpdateCounter(person.Id, person.CountDownTick);
+
                 }
                 Console.ReadKey();
             }

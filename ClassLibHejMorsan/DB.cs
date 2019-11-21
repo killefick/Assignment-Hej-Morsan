@@ -19,7 +19,7 @@ namespace ClassLibHejMorsan
 
         // public method to call from application
         // IEnumerable: allows looping over generic or non-generic lists
-        public IEnumerable<Person> GetPersons()
+        public IEnumerable<Person> GetPersonsFromDB()
         {
             // connects to the database
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -28,19 +28,28 @@ namespace ClassLibHejMorsan
                 // connection.QueryFirst<xxx> allows only one row
                 return connection.Query<Person>("EXEC GetPersons");
             }
-
         }
-        public IEnumerable<Person> AddPerson(string name, int counter)
+
+        public void UpdateCounterOnDB(int id, int counter)
         {
-            // connects to the database
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                // connection.Query<xxx> allows multiple rows 
-                // connection.QueryFirst<xxx> allows only one row
-                return connection.Query<Person>($"EXEC AddPerson {name} {counter}");
+                 connection.Query<Person>($"EXEC UpdateCounter {id}, {counter}");
             }
-
         }
+
+
+        // public IEnumerable<Person> AddPerson(string name, int counter)
+        // {
+        //     // connects to the database
+        //     using (SqlConnection connection = new SqlConnection(connectionString))
+        //     {
+        //         // connection.Query<xxx> allows multiple rows 
+        //         // connection.QueryFirst<xxx> allows only one row
+        //         return connection.Query<Person>($"EXEC AddPerson {name} {counter}");
+        //     }
+
+
 
     }
 }

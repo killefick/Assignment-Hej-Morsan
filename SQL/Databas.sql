@@ -77,6 +77,7 @@ GO
 EXEC AddPerson 'Pelle', '073-123456', '2019-08-09', 5
 GO
 
+
 -- DeletePerson (lägg index på name!)
 CREATE OR ALTER  PROCEDURE DeletePerson
 	@Id int
@@ -87,6 +88,20 @@ WHERE Id = @Id
 GO
 
 EXEC DeletePerson 5
+GO
+
+
+-- UpdateCounter
+CREATE OR ALTER PROCEDURE UpdateCounter
+	@Id int,
+	@Counter int
+AS
+UPDATE Persons
+SET Counter = @Counter
+WHERE Id = @Id
+GO
+
+EXEC UpdateCounter 4, 8
 GO
 
 
@@ -104,6 +119,9 @@ SET Name = @Name,
 	Birthday = @Birthday,
 	Counter = @Counter
 WHERE Id = @Id
+GO
+
+EXEC UpdatePerson 7, 'Lasse', '073-123 47 56', '1976-09-28', 6
 GO
 
 
