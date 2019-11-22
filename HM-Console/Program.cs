@@ -6,7 +6,8 @@ namespace ClassLibHejMorsan
     {
         static void Main(string[] args)
         {
-            // instatntiate classes
+            //Instatiate Classes Needed to run
+            ConsoleMenu StartingMenu = new ConsoleMenu();
             Person currentPerson = new Person();
             CountDown newCountdown = new CountDown();
 
@@ -22,7 +23,7 @@ namespace ClassLibHejMorsan
                 Console.Clear();
                 day++;
                 Console.WriteLine("Det är dag " + day + ":");
-                Console.WriteLine("-------");
+                Console.WriteLine("-------\n");
 
                 foreach (var person in DB.myPersons)
                 {
@@ -50,8 +51,8 @@ namespace ClassLibHejMorsan
 
                     // update counter in database for current person
                     currentPerson.UpdateCounter(person.Id, person.CountDownTick);
-
                 }
+                StartingMenu.StartMenu();
                 Console.ReadKey();
             }
         }

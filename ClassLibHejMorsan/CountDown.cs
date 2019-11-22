@@ -37,5 +37,6 @@ namespace ClassLibHejMorsan
             Person.CountDownTick = Person.Counter;
             return Person.CountDownTick;
         }
+
     }
 }
