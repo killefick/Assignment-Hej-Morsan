@@ -38,10 +38,10 @@
         barColor = "bg-warning";
       }
         <tr>
-        <td>@item.Name</td>
-        <td><a href="/ResetPerson/?id=@item.Id&counter=@item.initialCounter" class="btn btn-info" role="button">Skicka SMS</a></td>
-        <td>@item.Birthday</td>
-        <td class=@barColor><h5>@item.Counter</h5></td>
+        <td name="name">@item.Name</td>
+        <td name="phone"><a href="/ResetPerson/?id=@item.Id&counter=@item.initialCounter" class="btn btn-info" role="button">Skicka SMS</a></td>
+        <td name="birthday">@item.Birthday</td>
+        <td class=@barColor name="counter"><h5>@item.Counter</h5></td>
         <td><a href="/EditPerson" class="btn btn-info" role="button" id="@item.Id">Ändra</a></td>
         <td><a href="/DeletePerson/?id=@item.Id" class="btn btn-danger" role="button">X</a></td>
         </tr>

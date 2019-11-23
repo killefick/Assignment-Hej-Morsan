@@ -14,14 +14,17 @@ namespace ClassLibHejMorsan
         public int initialCounter { get; set; }
         public int CountDownTick { get; set; }
 
-        string myDB = "Server=40.85.84.155;Database=Student13;User=Student13;Password=YH-student@2019;";
+        string connectionString = "Server=40.85.84.155;Database=Student13;User=Student13;Password=YH-student@2019;";
 
         // method to get person list
         public void GetPersons()
         {
             // creates connection object to connect to database
-            var db = new DB(myDB);
+            var db = new DB(connectionString);
+
+            // start with a fresh list
             DB.myPersons.Clear();
+            
             // adds persons from database to list
             foreach (var person in db.GetPersonsFromDB())
             {
@@ -34,7 +37,7 @@ namespace ClassLibHejMorsan
         // method to delete person from list
         public int DeletePerson(int id)
         {
-            var db = new DB(myDB);
+            var db = new DB(connectionString);
 
             // deletes person from database
             db.DeletePersonFromDB(id);
@@ -45,7 +48,17 @@ namespace ClassLibHejMorsan
         // method to update counter of a person
         public void UpdateCounter(int id, int counter)
         {
-            var db = new DB(myDB);
+            var db = new DB(connectionString);
+
+            // updates perosn on db
+            db.UpdateCounterOnDB(id, counter);
+        }
+
+
+        // method to update counter of a person
+        public void UpdatePerson(int id, string name, string birthday, int counter)
+        {
+            var db = new DB(connectionString);
 
             // updates perosn on db
             db.UpdateCounterOnDB(id, counter);

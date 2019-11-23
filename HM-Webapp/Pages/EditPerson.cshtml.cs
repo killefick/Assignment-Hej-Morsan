@@ -6,17 +6,23 @@ namespace Hej_Morsan_Projekt.Pages
 {
     public class EditPersonModel : PageModel
     {
-        public string getUrl { get; private set; }
-
         // instantiate class
         Person person = new Person();
 
-        public void OnGet()
+  // OnGet looks for 
+        public void OnGet(string id, string name, string birthday, string counter)
         {
-            // gets id on delete button
-            getUrl = Request.Query["id"];
-
-            person.DeletePerson(Convert.ToInt32(getUrl));
         }
+
+        // public void OnGet()
+        // {
+        //     // gets id on delete button
+        //     int id = Convert.ToInt32(Request.Query["id"]);
+        //     string name = Request.Query["name"];
+        //     string birthday = Request.Query["birthday"];
+        //     int counter = Convert.ToInt32(Request.Query["counter"]);
+
+        //     person.UpdatePerson(id, name, birthday, counter);
+        // }
     }
 }
