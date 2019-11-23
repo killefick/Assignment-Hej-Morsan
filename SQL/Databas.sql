@@ -11,11 +11,11 @@ GO
 CREATE TABLE Persons
 (
 	Id             int         IDENTITY(1,1),
-	Name           varchar(50) NOT NULL,
-	Phone          varchar(20) NOT NULL,
+	Name           varchar(50),
+	Phone          varchar(20),
 	Birthday       varchar(10),
-	Counter        int         NOT NULL,
-	InitialCounter int         NOT NULL
+	Counter        int,
+	InitialCounter int
 )
 GO
 
@@ -80,18 +80,21 @@ CREATE OR ALTER PROCEDURE AddPerson
 	@Name varchar(50),
 	@Phone varchar(20),
 	@Birthday varchar(10),
-	@Counter int = NULL
+	@Counter int,
+	@InitialCounter int
 AS
 INSERT INTO Persons
 	(Name,
 	Phone,
 	Birthday,
-	Counter)
+	Counter,
+	InitialCounter)
 VALUES
 	(
 		@Name,
 		@Phone,
 		@Birthday,
+		@Counter,
 		@Counter
 )
 GO
@@ -100,8 +103,8 @@ SELECT
 	*
 FROM
 	persons
-GO
-EXEC AddPerson 'Pelle', '073-123456', '2019-08-09', 5
+
+EXEC AddPerson 'Pelle', '073-123456', '2019-08-09', 5, 5
 GO
 
 
@@ -150,7 +153,7 @@ SET Name = @Name,
 WHERE Id = @Id
 GO
 
-EXEC UpdatePerson 7, 'Lasse', '073-123 47 56', '1976-09-28', 6
+EXEC UpdatePerson 7, 'Lasse', '073-123 47 56', '1976-09-28', 6 ,6
 GO
 
 

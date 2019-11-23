@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Dapper;
@@ -50,12 +51,23 @@ namespace ClassLibHejMorsan
         }
 
         // method to update counter of a person on database
-        public void UpdatePersonOnDB(int id, string name, string birthday, int counter)
+        public void UpdatePersonOnDB(int id, string name, string phone, string birthday, int counter)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                connection.Query<Person>($"EXEC UpdatePerson {id} {name} {birthday} {counter}");
+                connection.Query<Person>($"EXEC UpdatePerson {id} {name} {phone} {birthday} {counter}");
+            }
+        }
+
+        internal void AddPersonOnDB(string name, string phone, string birthday, int counter, int initialCounter)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                initialCounter = counter;
+                connection.Query<Person>($"EXEC AddPerson {name}, {phone}, {birthday}, 5, 5");
             }
         }
     }
+    // EXEC AddPerson 'Pelle', '073-123456', '2019-08-09', 5, 5
+    // EXEC AddPerson {name}, {phone}, {birthday}, {counter}, {initialCounter} 
 }

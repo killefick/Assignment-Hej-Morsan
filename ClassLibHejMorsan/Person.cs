@@ -50,18 +50,27 @@ namespace ClassLibHejMorsan
         {
             var db = new DB(connectionString);
 
-            // updates perosn on db
+            // updates person on db
             db.UpdateCounterOnDB(id, counter);
         }
 
 
-        // method to update counter of a person
-        public void UpdatePerson(int id, string name, string birthday, int counter)
+        // method to update a person
+        public void UpdatePerson(int id, string name, string phone, string birthday, int counter)
         {
             var db = new DB(connectionString);
 
-            // updates perosn on db
-            db.UpdateCounterOnDB(id, counter);
+            // updates person on db
+            db.UpdatePersonOnDB(id, name, phone,birthday, counter);
+        }
+
+        // method to add a person
+        public void AddPerson(string name, string phone, string birthday, int counter)
+        {
+            var db = new DB(connectionString);
+
+            // updates person on db
+            db.AddPersonOnDB(name, phone, birthday, counter, counter);
         }
     }
 }
