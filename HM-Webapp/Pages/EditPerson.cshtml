@@ -2,28 +2,33 @@
 @model IndexModel
 @{
 }
-<form action="/EditPerson">
 
- <div class="form-group">
-  <label for="name">Name:</label>
-  <input type="text" class="form-control" id="name" name="name">
-</div>
+<a href="/Index"><img alt="Hem" src="/img/morsan_small.png" width="300"></a>
 
- <div class="form-group">
-  <label for="phone">Name:</label>
-  <input type="text" class="form-control" id="phone" name="phone">
-</div>
+<div class="container">
 
- <div class="form-group">
-  <label for="birthday">Name:</label>
-  <input type="text" class="form-control" id="birthday" name="birthday">
-</div>
+  <form action="/EditPerson">
+      <p></p>
+      <h3>Vem bryr du dig om?</h3>
 
- <div class="form-group">
-  <label for="number">Name:</label>
-  <input type="number" class="form-control" id="number" name="number">
+    <!-- name="" is used for MODEL BINDING-->
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Namn" name="name" value='@Request.Query["name"]'>
+    </div>
+
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Födelsedag" name="birthday" value='@Request.Query["birthday"]'>
+    </div>
+
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Mobilnummer" name="phone" value='@Request.Query["phone"]'>
+    </div>
+    
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Mors-O-Meter (antal dagar mellan hälsningarna)" 
+      name="counter" value='@Request.Query["counter"]'>
+    </div>
+
+    <button type="submit" class="btn btn-info">Spara</button>
+  </form>
 </div>
-<div>
-    <input class="btn btn-primary" type="submit" value="Spara">
-</div>
-</form>

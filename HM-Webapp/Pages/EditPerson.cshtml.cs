@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ClassLibHejMorsan;
-using System;
 
 namespace Hej_Morsan_Projekt.Pages
 {
@@ -9,20 +8,20 @@ namespace Hej_Morsan_Projekt.Pages
         // instantiate class
         Person person = new Person();
 
-  // OnGet looks for 
-        public void OnGet(string id, string name, string birthday, string counter)
+        public string Id { get; private set; }
+        public string Name { get; private set; }
+        public string Phone { get; private set; }
+        public string Birthday { get; private set; }
+        public string Counter { get; private set; }
+
+        public void OnGet()
         {
+            Id = Request.Query["id"];
+            Name = Request.Query["name"];
+            Phone = Request.Query["phone"];
+            Birthday = Request.Query["birthday"];
+            Counter = Request.Query["counter"];
         }
 
-        // public void OnGet()
-        // {
-        //     // gets id on delete button
-        //     int id = Convert.ToInt32(Request.Query["id"]);
-        //     string name = Request.Query["name"];
-        //     string birthday = Request.Query["birthday"];
-        //     int counter = Convert.ToInt32(Request.Query["counter"]);
-
-        //     person.UpdatePerson(id, name, birthday, counter);
-        // }
     }
 }
