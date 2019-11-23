@@ -23,48 +23,97 @@ namespace ClassLibHejMorsan
         // IEnumerable: allows looping over generic or non-generic lists
         public IEnumerable<Person> GetPersonsFromDB()
         {
-            // connects to the database
-            using (SqlConnection connection = new SqlConnection(connectionString))
+
+            try
             {
-                // connection.Query<xxx> allows multiple rows 
-                // connection.QueryFirst<xxx> allows only one row
-                return connection.Query<Person>("EXEC GetPersons");
+                // connects to the database
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    // connection.Query<xxx> allows multiple rows 
+                    // connection.QueryFirst<xxx> allows only one row
+                    return connection.Query<Person>("EXEC GetPersons");
+                }
+
+            }
+            catch (System.Exception)
+            {
+
+                throw;
             }
         }
 
         // method to update counter of a person on database
         public void UpdateCounterOnDB(int id, int counter)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+
+            try
             {
-                connection.Query<Person>($"EXEC UpdateCounter {id}, {counter}");
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Query<Person>($"EXEC UpdateCounter {id}, {counter}");
+                }
+
+            }
+            catch (System.Exception)
+            {
+
+                throw;
             }
         }
 
         // method to update counter of a person on database
         public void DeletePersonFromDB(int id)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                connection.Query<Person>($"EXEC DeletePerson {id}");
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Query<Person>($"EXEC DeletePerson {id}");
+                }
+
+            }
+            catch (System.Exception)
+            {
+
+                throw;
             }
         }
 
         // method to update counter of a person on database
         public void UpdatePersonOnDB(int id, string name, string phone, string birthday, int counter)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+
+            try
             {
-                connection.Query<Person>($"EXEC UpdatePerson {id} {name} {phone} {birthday} {counter}");
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Query<Person>($"EXEC UpdatePerson {id} {name} {phone} {birthday} {counter}");
+                }
+
+            }
+            catch (System.Exception)
+            {
+
+                throw;
             }
         }
 
         internal void AddPersonOnDB(string name, string phone, string birthday, int counter, int initialCounter)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+
+            try
             {
-                initialCounter = counter;
-                connection.Query<Person>($"EXEC AddPerson {name}, {phone}, {birthday}, 5, 5");
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    initialCounter = counter;
+                    connection.Query<Person>($"EXEC AddPerson {name}, {phone}, {birthday}, {counter}, {initialCounter} ");
+                }
+
+            }
+            catch (System.Exception)
+            {
+
+                throw;
             }
         }
     }
