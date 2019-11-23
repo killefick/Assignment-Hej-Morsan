@@ -6,7 +6,7 @@ namespace Hej_Morsan_Projekt.Pages
 {
     public class DeletePersonModel : PageModel
     {
-        public string getUrl { get; private set; }
+        public string Id { get; private set; }
 
         // instantiate class
         Person person = new Person();
@@ -14,9 +14,9 @@ namespace Hej_Morsan_Projekt.Pages
         public void OnGet()
         {
             // gets id on delete button
-            getUrl = Request.Query["id"];
+            Id = Request.Query["id"];
 
-            person.DeletePerson(Convert.ToInt32(getUrl));
+            person.DeletePerson(Convert.ToInt32(Id));
         }
     }
 }
