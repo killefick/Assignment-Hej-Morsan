@@ -7,28 +7,31 @@
 
 <div class="container">
 
-  <form action="/EditPerson">
-      <p></p>
+<form>
+
+  <p></p>
       <h3>Vem bryr du dig om?</h3>
 
-    <!-- name="" is used for MODEL BINDING-->
-    <div class="form-group">
-      <input type="text" class="form-control" placeholder="Namn" name="name" value='@Request.Query["name"]'>
-    </div>
+      <!-- name="" is used for MODEL BINDING-->
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Namn" name="name" value='@Request.Query["name"]'>
+      </div>
 
-    <div class="form-group">
-      <input type="text" class="form-control" placeholder="Födelsedag" name="birthday" value='@Request.Query["birthday"]'>
-    </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Födelsedag" name="birthday" value='@Request.Query["birthday"]'>
+      </div>
 
-    <div class="form-group">
-      <input type="text" class="form-control" placeholder="Mobilnummer" name="phone" value='@Request.Query["phone"]'>
-    </div>
-    
-    <div class="form-group">
-      <input type="text" class="form-control" placeholder="Mors-O-Meter (antal dagar mellan hälsningarna)" 
-      name="counter" value='@Request.Query["counter"]'>
-    </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Mobilnummer" name="phone" value='@Request.Query["phone"]'>
+      </div>
+      
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Mors-O-Meter (antal dagar mellan hälsningarna)" 
+        name="counter" value='@Request.Query["counter"]'>
+      </div>
+      
+      <a href="/Index" class="btn btn-danger" role="button">Avbryt</a>
+      <a href="/UpdatePerson" class="btn btn-info" role="button">Spara</a>
 
-    <button type="submit" class="btn btn-info">Spara</button>
-  </form>
+</form>
 </div>
