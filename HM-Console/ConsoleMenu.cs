@@ -7,6 +7,7 @@ namespace ClassLibHejMorsan
     class ConsoleMenu
     {
         Person currentPerson = new Person();
+        CountDown newCountdown = new CountDown();
 
         public void StartMenu()
         {
@@ -49,6 +50,38 @@ namespace ClassLibHejMorsan
                     break;
             }
 
+        }
+
+        //The daily loop fetches the saved database, runs through it, person by person.
+        //Gives the user the option to call if the counter has reached zero.
+        //Otherwise triggers an overduecounter to display how many days overdue the user is.
+        public void DailyLoop()
+        {
+            // currentPerson.GetPersons();
+            foreach (var person in DB.myPersons)
+            {
+
+                Console.WriteLine(person.Name + " " + person.CountDownTick);
+                if (newCountdown.TimeToCallMom(person) == true)
+                {
+                    Console.WriteLine($"Vill du ringa {person.Name}? \nJa[1] eller nej[2]: ");
+                    string input = Console.ReadLine();
+                    if (input == "1")
+                    {
+                        newCountdown.MomHasBeenCalled(person);
+                    }
+                    else
+                    {
+                        newCountdown.Overdue(person);
+                    }
+                }
+                else
+                {
+                    //If mom hasn't been called
+                }
+            }
+            currentPerson.UpdateCounter(currentPerson.Id, currentPerson.CountDownTick);
+            Console.ReadKey();
         }
 
         private void DeletePerson()
@@ -105,7 +138,7 @@ namespace ClassLibHejMorsan
             birthday = Console.ReadLine();
             System.Console.WriteLine("Enter The Time interval:");
             counter = int.Parse(Console.ReadLine());
-            
+
             currentPerson.AddPerson(name, phone.ToString(), birthday, counter);
 
         }

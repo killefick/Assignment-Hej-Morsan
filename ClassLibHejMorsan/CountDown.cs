@@ -22,6 +22,7 @@ namespace ClassLibHejMorsan
         // If you don't call mom this starts to tick
         public int Overdue(Person Person)
         {
+            //Overdue Timer to tick the days overdue
             int CountDownOverdue = 0;
 
             if (Person.CountDownTick <= -1)
