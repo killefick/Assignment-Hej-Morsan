@@ -23,7 +23,6 @@ namespace ClassLibHejMorsan
         // IEnumerable: allows looping over generic or non-generic lists
         public IEnumerable<Person> GetPersonsFromDB()
         {
-
             try
             {
                 // connects to the database
