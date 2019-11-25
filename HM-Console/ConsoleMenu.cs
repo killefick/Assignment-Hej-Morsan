@@ -6,17 +6,17 @@ namespace ClassLibHejMorsan
 {
     class ConsoleMenu
     {
-        Person currentPerson = new Person();
+        // Person P = new Person();
         CountDown newCountdown = new CountDown();
 
         //The Menu, it's type is a bool because we only want to switch to a new day when we explicitly says so.
-        public bool StartMenu()
+        public bool StartMenu(Person P)
         {
             int UserInput = 0;
-            System.Console.WriteLine("\n\n");
+            System.Console.WriteLine("");
             System.Console.WriteLine("[1] Add a new Person");
             System.Console.WriteLine("[2] Update Person");
-            System.Console.WriteLine("[3] Delete Person\n");
+            System.Console.WriteLine("[3] Delete Person");
             System.Console.WriteLine("[4] New Day");
             try
             {
@@ -30,18 +30,17 @@ namespace ClassLibHejMorsan
             {
                 case 1:
                     {
-                        AddPerson();
-
+                        AddPerson(P);
                     }
                     break;
                 case 2:
                     {
-                        UpdatePerson();
+                        UpdatePerson(P);
                     }
                     break;
                 case 3:
                     {
-                        DeletePerson();
+                        DeletePerson(P);
                     }
                     break;
                 case 4:
@@ -57,10 +56,10 @@ namespace ClassLibHejMorsan
         //The daily loop fetches the saved database, runs through it, person by person.
         //Gives the user the option to call if the counter has reached zero.
         //Otherwise triggers an overduecounter to display how many days overdue the user is.
-        public void DailyLoop()
+        public void DailyLoop(Person P)
         {
-            currentPerson.GetPersons();
-            foreach (var person in currentPerson.myPersons)
+            P.GetPersons();
+            foreach (var person in P.myPersons)
             {
                 if(person.CountDownTick > -1)
                 {
@@ -97,12 +96,12 @@ namespace ClassLibHejMorsan
 
         //NOTE: Only works if we display the database ID atm
         // TODO: Somehow fix so that it displays the index number, but uses the id in the database
-        private void DeletePerson()
+        private void DeletePerson(Person P)
         {
             int IdToDelete = 0;
-            for (int i = 0; i < currentPerson.myPersons.Count; i++)
+            for (int i = 0; i < P.myPersons.Count; i++)
             {
-                System.Console.WriteLine($"{currentPerson.myPersons[i].Id}. {currentPerson.myPersons[i].Name}");
+                System.Console.WriteLine($"{P.myPersons[i].Id}. {P.myPersons[i].Name}");
             }
             System.Console.WriteLine("Which Person would you like to delete?");
             try
@@ -122,8 +121,8 @@ namespace ClassLibHejMorsan
             {
                 case "Y":
                     {
-                        currentPerson.DeletePerson(IdToDelete);
-                        System.Console.WriteLine($"{currentPerson.Name} has been deleted");
+                        P.DeletePerson(IdToDelete);
+                        System.Console.WriteLine($"{P.Name} has been deleted");
                         Console.Clear();
                     }
                     break;
@@ -142,12 +141,13 @@ namespace ClassLibHejMorsan
         }
         //NOTE: Can't deal with spaces, throws an error.
         // TODO: Fix error?
-        private void AddPerson()
+        private void AddPerson(Person P)
         {
             string name;
             string phone;
             string birthday;
             int counter;
+
             System.Console.Write("Enter Name: ");
             name = Console.ReadLine();
             System.Console.Write("Enter Telephone number: ");
@@ -157,7 +157,7 @@ namespace ClassLibHejMorsan
             System.Console.Write("Enter The Time interval: ");
             counter = int.Parse(Console.ReadLine());
 
-            currentPerson.AddPerson(name, phone.ToString(), birthday, counter);
+            P.AddPerson(name, phone.ToString(), birthday, counter);
             System.Console.WriteLine($"{name}, has been added to the list.");
             Console.Clear();
 
@@ -169,13 +169,13 @@ namespace ClassLibHejMorsan
         //NOTE: Only works if we display the database ID atm (Same as Deleteperson)
         // TODO: Somehow fix so that it displays the index number, but uses the id in the database
 
-        private void UpdatePerson()
+        private void UpdatePerson(Person P)
         {
             int IdToUpdate = 0;
-            for (int i = 0; i < currentPerson.myPersons.Count; i++)
+            for (int i = 0; i < P.myPersons.Count; i++)
             {
 
-                System.Console.WriteLine($"{currentPerson.myPersons[i].Id}. {currentPerson.myPersons[i].Name}");
+                System.Console.WriteLine($"{P.myPersons[i].Id}. {P.myPersons[i].Name}");
             }
             System.Console.WriteLine("Which Person would you like to Update?");
             try
@@ -206,7 +206,7 @@ namespace ClassLibHejMorsan
             {
                 System.Console.WriteLine("Wrong input, try again");
             }
-            currentPerson.UpdatePerson(IdToUpdate,name,phone,birthday,counter);
+            P.UpdatePerson(IdToUpdate,name,phone,birthday,counter);
 
         }
     }

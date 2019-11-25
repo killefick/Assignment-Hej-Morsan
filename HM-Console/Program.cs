@@ -14,25 +14,29 @@ namespace ClassLibHejMorsan
         static void Main(string[] args)
         {
             ConsoleMenu newConsole = new ConsoleMenu();
-
+            Person P = new Person();
             int day = 0;
             bool loop = true;
-            //Person.GetPersons(); <-- Den hämtar inte längre listan
+            P.GetPersons();
+
             while (loop)
             {
+                Console.Clear();
                 //Increases days
-                // NOTE: SHould we have an Datetime here? should we add a timer?
                 day++;
                 Console.WriteLine("Det är dag " + day + ":");
                 Console.WriteLine("-------");
 
                 //Runs The program
-                newConsole.DailyLoop();
-                loop= false;
-                newConsole.StartMenu();
-                if (newConsole.StartMenu() == true)
+                newConsole.DailyLoop(P);
+                newConsole.StartMenu(P);
+                if (newConsole.StartMenu(P) == true)
                 {
-                loop=true;
+                    loop = true;
+                }
+                else
+                {
+                    loop = false;
                 }
             }
         }
