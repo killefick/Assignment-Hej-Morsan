@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 namespace ClassLibHejMorsan
 {
     // Create a PUBLIC class that maps to our SQL Table 
@@ -11,8 +12,13 @@ namespace ClassLibHejMorsan
         public string Phone { get; set; }
         public string Birthday { get; set; }
         public int Counter { get; set; }
-        public int initialCounter { get; set; }
         public int CountDownTick { get; set; }
+        public int initialCounter { get; set; }
+        public int Overdue { get; set; }
+
+        // (List is supposed to be static because the list is global.)
+        public List<Person> myPersons = new List<Person>();
+
 
         string connectionString = "Server=40.85.84.155;Database=Student13;User=Student13;Password=YH-student@2019;";
 
@@ -23,12 +29,12 @@ namespace ClassLibHejMorsan
             var db = new DB(connectionString);
 
             // start with a fresh list
-            DB.myPersons.Clear();
+            myPersons.Clear();
             
             // adds persons from database to list
             foreach (var person in db.GetPersonsFromDB())
             {
-                DB.myPersons.Add(person);
+                myPersons.Add(person);
                 // sets counter variable that will decrease for each day 
                 person.CountDownTick = person.Counter;
             }
