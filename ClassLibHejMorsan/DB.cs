@@ -7,8 +7,7 @@ namespace ClassLibHejMorsan
 {
     public class DB
     {
-        // List is supposed to be static because the list is global.
-        public static List<Person> myPersons = new List<Person>();
+        
 
         // connectionString takes argument from "new DB"
         private readonly string connectionString;

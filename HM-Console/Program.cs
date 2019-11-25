@@ -16,15 +16,24 @@ namespace ClassLibHejMorsan
             ConsoleMenu newConsole = new ConsoleMenu();
 
             int day = 0;
+            bool loop = true;
             //Person.GetPersons(); <-- Den hämtar inte längre listan
-            while (true)
+            while (loop)
             {
-                //Increases 
+                //Increases days
+                // NOTE: SHould we have an Datetime here? should we add a timer?
                 day++;
                 Console.WriteLine("Det är dag " + day + ":");
                 Console.WriteLine("-------");
+
                 //Runs The program
                 newConsole.DailyLoop();
+                loop= false;
+                newConsole.StartMenu();
+                if (newConsole.StartMenu() == true)
+                {
+                loop=true;
+                }
             }
         }
     }

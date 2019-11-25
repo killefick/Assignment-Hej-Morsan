@@ -29,11 +29,11 @@ VALUES
 INSERT INTO Persons
 	(Name, Phone, Birthday, Counter, InitialCounter)
 VALUES
-	('Pappa', '072-234 24 24', '1944-06-13', 2, 2)
+	('Pappa', '072-234 24 24', '1944-06-13', 5, 5)
 INSERT INTO Persons
 	(Name, Phone, Birthday, Counter, InitialCounter)
 VALUES
-	('Mormor', '076-224 12 24', '1914-12-12', 1, 1)
+	('Mormor', '076-224 12 24', '1914-12-12', 5, 5)
 INSERT INTO Persons
 	(Name, Phone, Birthday, Counter, InitialCounter)
 VALUES

@@ -10,7 +10,7 @@ namespace Hej_Morsan_Projekt.Pages
         Person person = new Person();
 
         // create list to store persons from database 
-        public List<Person> myPersons = new List<Person>();
+        public List<Person> myPerson = new List<Person>();
 
         public void OnGet()
         {
@@ -18,9 +18,9 @@ namespace Hej_Morsan_Projekt.Pages
             person.GetPersons();
 
             // create local list to be accessed via @Model 
-            foreach (var person in DB.myPersons)
+            foreach (var person in person.myPersons)
             {
-                myPersons.Add(person);
+                myPerson.Add(person);
             }
         }
     }
