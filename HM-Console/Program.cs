@@ -28,7 +28,7 @@ namespace ClassLibHejMorsan
 
                 //Runs The program
                 newConsole.DailyLoop(P);
-                loop = newConsole.StartMenu(P); //TODO: returnerar true men 
+                loop = newConsole.StartMenu(P); 
             }
         }
     }

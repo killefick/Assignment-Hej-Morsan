@@ -12,46 +12,40 @@ namespace ClassLibHejMorsan
         //The Menu, it's type is a bool because we only want to switch to a new day when we explicitly says so.
         public bool StartMenu(Person P)
         {
-            int UserInput = 0;
-            System.Console.WriteLine("");
-            System.Console.WriteLine("[1] Add a new Person");
-            System.Console.WriteLine("[2] Update Person");
-            System.Console.WriteLine("[3] Delete Person");
-            System.Console.WriteLine("[4] New Day");
-            
-            try
-            {
-                UserInput = int.Parse(Console.ReadLine());
-            }
-            catch
-            {
-                Console.ReadKey();
-            }
-            switch (UserInput)
-            {
-                case 1:
-                    {
-                        AddPerson(P);
-                    }
-                    break;
-                case 2:
-                    {
-                        UpdatePerson(P);
-                    }
-                    break;
-                case 3:
-                    {
-                        DeletePerson(P);
-                    }
-                    break;
-                case 4:
-                    {
-                        //We want a new day, the value is true and triggers the loop in program.cs
-                        return true;
-                    }
-            }
-            return false;
+            string userInput = "";
 
+            while (true)
+            {
+                System.Console.WriteLine("");
+                System.Console.WriteLine("[1] Add a new Person");
+                System.Console.WriteLine("[2] Update Person");
+                System.Console.WriteLine("[3] Delete Person");
+                System.Console.WriteLine("Press any key to skip to next day...");
+
+                userInput = Console.ReadLine();
+
+                switch (userInput)
+                {
+                    case "1":
+                        {
+                            AddPerson(P);
+                        }
+                        break;
+                    case "2":
+                        {
+                            UpdatePerson(P);
+                        }
+                        break;
+                    case "3":
+                        {
+                            DeletePerson(P);
+                        }
+                        break;
+                    default:
+                        return true;
+                }
+                return false;
+            }
         }
 
         //The daily loop fetches the saved database, runs through it, person by person.
@@ -59,40 +53,51 @@ namespace ClassLibHejMorsan
         //Otherwise triggers an overduecounter to display how many days overdue the user is.
         public void DailyLoop(Person P)
         {
+            // load persons from DB
             P.GetPersons();
+            bool waitForCorrectInput = true;
             foreach (var person in P.myPersons)
             {
-                if(person.CountDownTick > -1)
-                {
-                    Console.WriteLine($"{person.Name}: {person.CountDownTick}");
-                }
-                // NOTE: Can't be used until we have fixed the OverdueCounter.
-                else
-                {
-                    System.Console.WriteLine($"{person.Name}: {person.Overdue} overdue");
-                }
+                // if it's not time to call yet
+                // if (person.CountDownTick > -1)
+                // {
+                // print person's details
+                Console.WriteLine($"{person.Name}: {person.CountDownTick}");
+                // }
+                // if it's time to call
+                // else
+                // {
+                //     System.Console.WriteLine($"{person.Name}: {person.Overdue} overdue");
+                // }
 
                 if (newCountdown.TimeToCallMom(person) == true)
                 {
-                    Console.WriteLine($"Vill du ringa {person.Name}? \n[Y]es or [N]o: ");
-                    string input = Console.ReadLine();
-                    string UserInput = input.ToUpper();
-                    if (UserInput == "Y")
+                    while (waitForCorrectInput)
                     {
-                        newCountdown.MomHasBeenCalled(person);
+                        Console.WriteLine($"Vill du ringa {person.Name}? \n[Y]es or [N]o: ");
+                        string input = Console.ReadLine();
+                        string userInput = input.ToUpper();
+
+                        switch (userInput)
+                        {
+                            case "Y":
+                                newCountdown.MomHasBeenCalled(person);
+                                waitForCorrectInput = false;
+                                break;
+
+                            case "N":
+                                Console.WriteLine($"Du valde att inte ringa {person.Name}.");
+                                waitForCorrectInput = false;
+                                continue;
+
+                            default:
+                                Console.WriteLine("Vänligen skriv Y eller N!");
+                                Console.Read();
+                                break;
+                        }
                     }
-                    else
-                    {
-                        //NOTE: Doesn't work atm.
-                        newCountdown.Overdue(person);
-                    }
-             }
-                else
-                {
-                    //Mom doesn't need to be called
-                    
                 }
-            person.UpdateCounter(person.Id, person.CountDownTick);
+                person.UpdateCounter(person.Id, person.CountDownTick);
             }
         }
 
@@ -191,7 +196,7 @@ namespace ClassLibHejMorsan
             string name;
             string phone;
             string birthday;
-            int counter=0;
+            int counter = 0;
 
             System.Console.Write("Enter Name: ");
             name = Console.ReadLine();
@@ -200,7 +205,7 @@ namespace ClassLibHejMorsan
             System.Console.Write("Enter Birthday: ");
             birthday = Console.ReadLine();
             System.Console.Write("Enter The Time interval: ");
-             try
+            try
             {
                 counter = int.Parse(Console.ReadLine());
             }
@@ -208,7 +213,7 @@ namespace ClassLibHejMorsan
             {
                 System.Console.WriteLine("Wrong input, try again");
             }
-            P.UpdatePerson(IdToUpdate,name,phone,birthday,counter);
+            P.UpdatePerson(IdToUpdate, name, phone, birthday, counter);
 
         }
     }

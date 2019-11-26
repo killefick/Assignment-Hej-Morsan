@@ -25,11 +25,11 @@ AS
 INSERT INTO Persons
 	(Name, Phone, Birthday, Counter, InitialCounter)
 VALUES
-	('Mamma', '076-234 22 24', '1954-03-23', 15, 15)
+	('Mamma', '076-234 22 24', '1954-03-23', 3, 3)
 INSERT INTO Persons
 	(Name, Phone, Birthday, Counter, InitialCounter)
 VALUES
-	('Pappa', '072-234 24 24', '1944-06-13', 15, 15)
+	('Pappa', '072-234 24 24', '1944-06-13', 7, 7)
 INSERT INTO Persons
 	(Name, Phone, Birthday, Counter, InitialCounter)
 VALUES
@@ -37,7 +37,7 @@ VALUES
 INSERT INTO Persons
 	(Name, Phone, Birthday, Counter, InitialCounter)
 VALUES
-	('Syrran', '077-277 77 24', '2008-11-11', 15, 15)
+	('Syrran', '077-277 77 24', '2008-11-11', 11, 11)
 GO
 
 EXEC InitDB
@@ -131,7 +131,7 @@ SET Counter = @InitialCounter
 WHERE Id = @Id
 GO
 
-EXEC UpdateCounter 4, 8
+EXEC UpdateCounter 1, -1
 GO
 
 

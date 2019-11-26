@@ -20,24 +20,24 @@ namespace ClassLibHejMorsan
             }
         }
 
-        // TODO: This doesn't work!  ---(If you don't call mom this starts to tick)
-        public int Overdue(Person Person)
-        {
-            int CountDownOverdue= 0;
-            //Overdue Timer to tick the days overdue
+        // // (If you don't call mom this starts to tick)
+        // public int Overdue(Person Person)
+        // {
+        //     int CountDownOverdue= 0;
+        //     //Overdue Timer to tick the days overdue
 
-            if (Person.CountDownTick <= -1)
-            {
-                CountDownOverdue++;
-            }
-            return CountDownOverdue;
-        }
+        //     if (Person.CountDownTick <= -1)
+        //     {
+        //         CountDownOverdue++;
+        //     }
+        //     return CountDownOverdue;
+        // }
 
         // Mom has been called and the counter resets to her initialdays
-        public int MomHasBeenCalled(Person Person)
+        public void MomHasBeenCalled(Person Person)
         {
             Person.CountDownTick = Person.initialCounter;
-            return Person.CountDownTick;
+            // return Person.CountDownTick;
         }
 
     }

@@ -7,7 +7,7 @@ namespace ClassLibHejMorsan
 {
     public class DB
     {
-        
+
 
         // connectionString takes argument from "new DB"
         private readonly string connectionString;
@@ -54,8 +54,8 @@ namespace ClassLibHejMorsan
             }
             catch (System.Exception)
             {
-
-                throw;
+                System.Console.WriteLine("Fel med DB!");
+                // throw;
             }
         }
 
