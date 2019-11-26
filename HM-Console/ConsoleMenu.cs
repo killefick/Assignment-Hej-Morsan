@@ -10,6 +10,9 @@ namespace ClassLibHejMorsan
         CountDown newCountdown = new CountDown();
 
         //The Menu, it's type is a bool because we only want to switch to a new day when we explicitly says so.
+
+        //NOTE: WHen you have used one of the menuoptions, it loops once more and if you have someone to call it gets
+        //stuck in that loop for infinity!
         public bool StartMenu(Person P)
         {
             string userInput = "";
@@ -82,7 +85,7 @@ namespace ClassLibHejMorsan
                                 continue;
 
                             default:
-                                Console.WriteLine("Plrease write Y or N!");
+                                Console.WriteLine("Please write Y or N!");
                                 Console.Read();
                                 break;
                         }
@@ -95,16 +98,23 @@ namespace ClassLibHejMorsan
         // deletes a person from DB
         private void DeletePerson(Person P)
         {
-            bool enteredInt = false;
             int idToDelete = 0;
+            bool enteredInt = false;
 
             while (true)
             {
-                // list persons 
-                for (int i = 0; i < P.myPersons.Count; i++)
+                idToDelete=0;
+                //Changed from a for loop to a foreach loop to make sure we don't fall out of scope
+                //And to make it easier to get to the persons ID
+                foreach (var person in P.myPersons)
                 {
-                    System.Console.WriteLine($"Id: {P.myPersons[i].Id} {P.myPersons[i].Name}");
+                    System.Console.WriteLine($"Id: {person.Id} {person.Name}");
                 }
+
+                // NOTE:
+                // When ID doesn't exist an the loop resets, this loop goes through the try catch w/o
+                //waiting for user input.
+                // TODO: Fix that unnecessary loop
                 while (!enteredInt)
                 {
                     // ask for person's id to be deleted
@@ -112,7 +122,7 @@ namespace ClassLibHejMorsan
                     // try to get a number
                     try
                     {
-                        idToDelete = int.Parse(Console.ReadLine());
+                        idToDelete = Convert.ToInt32(Console.ReadLine());
                         enteredInt = true;
                     }
                     catch
@@ -127,9 +137,11 @@ namespace ClassLibHejMorsan
                 string UserConfirmation = "";
                 bool match = false;
 
-                for (int i = 1; i < (P.myPersons.Count + 1); i++)
-                {
-                    if (i == idToDelete)
+                // Changed from for to foreach for the same reasons as for above, we never fall out of the list
+                //and we don't have to go through an index to get to the persons ID
+                    foreach (var person in P.myPersons)
+                    {
+                    if ( person.Id== idToDelete)
                     {
                         match = true;
                         break;
@@ -157,6 +169,7 @@ namespace ClassLibHejMorsan
                             case "Y":
                                 {
                                     System.Console.WriteLine("Person has been deleted. Press any key...");
+
                                     P.DeletePerson(idToDelete);
                                     Console.Read();
                                     return;
@@ -180,11 +193,12 @@ namespace ClassLibHejMorsan
                 else
                 {
                     Console.WriteLine("Id does not exist! Press any key...");
+                    enteredInt=false;
                     Console.Read();
                 }
             }
         }
-
+            // Works as intended!
         private void AddPerson(Person P)
         {
             string name;
