@@ -92,15 +92,14 @@ namespace ClassLibHejMorsan
             }
         }
 
-        internal void AddPersonOnDB(string name, string phone, string birthday, int counter, int initialCounter)
+        internal void AddPersonOnDB(string name, string phone, string birthday, int counter)
         {
 
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    initialCounter = counter;
-                    connection.Query<Person>($"EXEC AddPerson {name}, {phone}, {birthday}, {counter}, {initialCounter} ");
+                    connection.Query<Person>($"EXEC AddPerson {name}, '{phone}', '{birthday}', {counter}, {counter} ");
                 }
 
             }

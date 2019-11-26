@@ -29,22 +29,22 @@ namespace ClassLibHejMorsan
                     case "1":
                         {
                             AddPerson(P);
+                            break;
                         }
-                        break;
                     case "2":
                         {
                             UpdatePerson(P);
+                            break;
                         }
-                        break;
                     case "3":
                         {
                             DeletePerson(P);
+                            break;
                         }
-                        break;
                     default:
                         return true;
                 }
-                return false;
+                return true;
             }
         }
 
@@ -100,13 +100,14 @@ namespace ClassLibHejMorsan
 
             while (true)
             {
-                // ask for person's id to be deleted
+                // list persons 
                 for (int i = 0; i < P.myPersons.Count; i++)
                 {
                     System.Console.WriteLine($"Id: {P.myPersons[i].Id} {P.myPersons[i].Name}");
                 }
                 while (!enteredInt)
                 {
+                    // ask for person's id to be deleted
                     System.Console.Write("Enter ID of person to delete: ");
                     // try to get a number
                     try
@@ -120,14 +121,33 @@ namespace ClassLibHejMorsan
 
                     }
                 }
+
+
                 // check if list of persons contains input ID
-                if (P.myPersons.Count.ToString().Contains(idToDelete.ToString()))
+                string UserConfirmation = "";
+                bool match = false;
+
+                for (int i = 1; i < (P.myPersons.Count + 1); i++)
+                {
+                    if (i == idToDelete)
+                    {
+                        match = true;
+                        break;
+                    }
+
+                    else
+                    {
+                        match = false;
+                    }
+                }
+
+                if (match)
                 {
                     System.Console.WriteLine($"Are you sure you want to delete ID: {idToDelete}");
                     System.Console.WriteLine($"[Y]es/[N]o");
 
                     string input = Console.ReadLine();
-                    string UserConfirmation = input.ToUpper();
+                    UserConfirmation = input.ToUpper();
 
                     // check user confirmation
                     while (true)
@@ -136,23 +156,23 @@ namespace ClassLibHejMorsan
                         {
                             case "Y":
                                 {
+                                    System.Console.WriteLine("Person has been deleted. Press any key...");
                                     P.DeletePerson(idToDelete);
-                                    System.Console.WriteLine($"{P.Name} has been deleted.");
                                     Console.Read();
+                                    return;
                                 }
-                                break;
                             case "N":
                                 {
-                                    System.Console.WriteLine("No one has been deleted.");
+                                    System.Console.WriteLine("No one has been deleted. Press any key...");
                                     Console.Read();
+                                    return;
                                 }
-                                break;
                             default:
                                 {
                                     System.Console.WriteLine("Wrong input.");
                                     Console.Read();
+                                    break;
                                 }
-                                break;
                         }
                         break;
                     }
@@ -164,8 +184,7 @@ namespace ClassLibHejMorsan
                 }
             }
         }
-        //NOTE: Can't deal with spaces, throws an error.
-        // TODO: Fix error?
+
         private void AddPerson(Person P)
         {
             string name;
@@ -182,8 +201,9 @@ namespace ClassLibHejMorsan
             System.Console.Write("Enter The Time interval: ");
             counter = int.Parse(Console.ReadLine());
 
-            P.AddPerson(name, phone.ToString(), birthday, counter);
-            System.Console.WriteLine($"{name}, has been added to the list.");
+            P.AddPerson(name, phone.ToString(), birthday.ToString(), counter);
+            System.Console.WriteLine($"{name} has been added to the list.");
+            Console.Read();
             Console.Clear();
 
         }

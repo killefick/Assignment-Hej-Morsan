@@ -41,13 +41,12 @@ namespace ClassLibHejMorsan
         }
 
         // method to delete person from list
-        public int DeletePerson(int id)
+        public void DeletePerson(int id)
         {
             var db = new DB(connectionString);
 
             // deletes person from database
             db.DeletePersonFromDB(id);
-            return id;
         }
 
 
@@ -76,7 +75,7 @@ namespace ClassLibHejMorsan
             var db = new DB(connectionString);
 
             // updates person on db
-            db.AddPersonOnDB(name, phone, birthday, counter, counter);
+            db.AddPersonOnDB(name, phone, birthday, counter);
         }
     }
 }
