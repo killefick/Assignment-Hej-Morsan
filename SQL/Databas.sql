@@ -25,7 +25,7 @@ AS
 INSERT INTO Persons
 	(Name, Phone, Birthday, Counter, InitialCounter)
 VALUES
-	('Mamma', '076-234 22 24', '1954-03-23', 10, 10)
+	('Mamma', '076-234 22 24', '1954-03-23', 15, 15)
 INSERT INTO Persons
 	(Name, Phone, Birthday, Counter, InitialCounter)
 VALUES
@@ -37,7 +37,7 @@ VALUES
 INSERT INTO Persons
 	(Name, Phone, Birthday, Counter, InitialCounter)
 VALUES
-	('Syrran', '077-277 77 24', '2008-11-11', 12, 12)
+	('Syrran', '077-277 77 24', '2008-11-11', 15, 15)
 GO
 
 EXEC InitDB

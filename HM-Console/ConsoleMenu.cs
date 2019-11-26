@@ -18,6 +18,7 @@ namespace ClassLibHejMorsan
             System.Console.WriteLine("[2] Update Person");
             System.Console.WriteLine("[3] Delete Person");
             System.Console.WriteLine("[4] New Day");
+            
             try
             {
                 UserInput = int.Parse(Console.ReadLine());
@@ -66,10 +67,10 @@ namespace ClassLibHejMorsan
                     Console.WriteLine($"{person.Name}: {person.CountDownTick}");
                 }
                 // NOTE: Can't be used until we have fixed the OverdueCounter.
-                // else
-                // {
-                //     System.Console.WriteLine($"{person.Name}: {person.Overdue} overdue");
-                // }
+                else
+                {
+                    System.Console.WriteLine($"{person.Name}: {person.Overdue} overdue");
+                }
 
                 if (newCountdown.TimeToCallMom(person) == true)
                 {
@@ -89,6 +90,7 @@ namespace ClassLibHejMorsan
                 else
                 {
                     //Mom doesn't need to be called
+                    
                 }
             person.UpdateCounter(person.Id, person.CountDownTick);
             }

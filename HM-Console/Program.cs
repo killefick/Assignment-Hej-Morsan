@@ -17,7 +17,6 @@ namespace ClassLibHejMorsan
             Person P = new Person();
             int day = 0;
             bool loop = true;
-            P.GetPersons();
 
             while (loop)
             {
@@ -29,15 +28,7 @@ namespace ClassLibHejMorsan
 
                 //Runs The program
                 newConsole.DailyLoop(P);
-                newConsole.StartMenu(P);
-                if (newConsole.StartMenu(P) == true)
-                {
-                    loop = true;
-                }
-                else
-                {
-                    loop = false;
-                }
+                loop = newConsole.StartMenu(P); //TODO: returnerar true men 
             }
         }
     }
