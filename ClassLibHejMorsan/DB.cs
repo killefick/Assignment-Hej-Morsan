@@ -7,8 +7,6 @@ namespace ClassLibHejMorsan
 {
     public class DB
     {
-
-
         // connectionString takes argument from "new DB"
         private readonly string connectionString;
 
@@ -27,8 +25,6 @@ namespace ClassLibHejMorsan
                 // connects to the database
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    // connection.Query<xxx> allows multiple rows 
-                    // connection.QueryFirst<xxx> allows only one row
                     return connection.Query<Person>("EXEC GetPersons");
                 }
 
@@ -48,14 +44,14 @@ namespace ClassLibHejMorsan
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    connection.Query<Person>($"EXEC UpdateCounter {id}, {counter}");
+                    connection.Query<Person>($"EXEC UpdateCounter {id}, '{counter}'");
                 }
 
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
-                System.Console.WriteLine("Fel med DB!");
-                // throw;
+                System.Console.WriteLine(ex.Message);
+                throw;
             }
         }
 

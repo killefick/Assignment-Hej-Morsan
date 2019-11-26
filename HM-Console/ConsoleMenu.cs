@@ -20,7 +20,7 @@ namespace ClassLibHejMorsan
                 System.Console.WriteLine("[1] Add a new Person");
                 System.Console.WriteLine("[2] Update Person");
                 System.Console.WriteLine("[3] Delete Person");
-                System.Console.WriteLine("Press any key to skip to next day...");
+                System.Console.WriteLine("Make a choice or press any key to skip to next day...");
 
                 userInput = Console.ReadLine();
 
@@ -55,26 +55,17 @@ namespace ClassLibHejMorsan
         {
             // load persons from DB
             P.GetPersons();
-            bool waitForCorrectInput = true;
             foreach (var person in P.myPersons)
             {
-                // if it's not time to call yet
-                // if (person.CountDownTick > -1)
-                // {
+                bool waitForCorrectInput = true;
                 // print person's details
                 Console.WriteLine($"{person.Name}: {person.CountDownTick}");
-                // }
-                // if it's time to call
-                // else
-                // {
-                //     System.Console.WriteLine($"{person.Name}: {person.Overdue} overdue");
-                // }
 
                 if (newCountdown.TimeToCallMom(person) == true)
                 {
                     while (waitForCorrectInput)
                     {
-                        Console.WriteLine($"Vill du ringa {person.Name}? \n[Y]es or [N]o: ");
+                        Console.WriteLine($"Do you want to call {person.Name}? \n[Y]es or [N]o: ");
                         string input = Console.ReadLine();
                         string userInput = input.ToUpper();
 
@@ -86,12 +77,12 @@ namespace ClassLibHejMorsan
                                 break;
 
                             case "N":
-                                Console.WriteLine($"Du valde att inte ringa {person.Name}.");
+                                Console.WriteLine($"You chose not to call {person.Name}.");
                                 waitForCorrectInput = false;
                                 continue;
 
                             default:
-                                Console.WriteLine("Vänligen skriv Y eller N!");
+                                Console.WriteLine("Plrease write Y or N!");
                                 Console.Read();
                                 break;
                         }
@@ -101,49 +92,76 @@ namespace ClassLibHejMorsan
             }
         }
 
-        //NOTE: Only works if we display the database ID atm
-        // TODO: Somehow fix so that it displays the index number, but uses the id in the database
+        // deletes a person from DB
         private void DeletePerson(Person P)
         {
-            int IdToDelete = 0;
-            for (int i = 0; i < P.myPersons.Count; i++)
-            {
-                System.Console.WriteLine($"{P.myPersons[i].Id}. {P.myPersons[i].Name}");
-            }
-            System.Console.WriteLine("Which Person would you like to delete?");
-            try
-            {
-                IdToDelete = int.Parse(Console.ReadLine());
-            }
-            catch
-            {
-                System.Console.WriteLine("Wrong input, try again");
-            }
-            System.Console.WriteLine($"Are you sure you want to delete id: {IdToDelete}");
-            System.Console.WriteLine($"[Y]es/[N]o");
-            string input = Console.ReadLine();
-            string UserConfirmation = input.ToUpper();
+            bool enteredInt = false;
+            int idToDelete = 0;
 
-            switch (UserConfirmation)
+            while (true)
             {
-                case "Y":
+                // ask for person's id to be deleted
+                for (int i = 0; i < P.myPersons.Count; i++)
+                {
+                    System.Console.WriteLine($"Id: {P.myPersons[i].Id} {P.myPersons[i].Name}");
+                }
+                while (!enteredInt)
+                {
+                    System.Console.Write("Enter ID of person to delete: ");
+                    // try to get a number
+                    try
                     {
-                        P.DeletePerson(IdToDelete);
-                        System.Console.WriteLine($"{P.Name} has been deleted");
-                        Console.Clear();
+                        idToDelete = int.Parse(Console.ReadLine());
+                        enteredInt = true;
                     }
-                    break;
-                case "N":
+                    catch
                     {
-                        System.Console.WriteLine("No one has been deleted");
-                        Console.Clear();
+                        System.Console.WriteLine("Enter a number!");
+
                     }
-                    break;
-                default:
+                }
+                // check if list of persons contains input ID
+                if (P.myPersons.Count.ToString().Contains(idToDelete.ToString()))
+                {
+                    System.Console.WriteLine($"Are you sure you want to delete ID: {idToDelete}");
+                    System.Console.WriteLine($"[Y]es/[N]o");
+
+                    string input = Console.ReadLine();
+                    string UserConfirmation = input.ToUpper();
+
+                    // check user confirmation
+                    while (true)
                     {
-                        System.Console.WriteLine("Wrong input.");
+                        switch (UserConfirmation)
+                        {
+                            case "Y":
+                                {
+                                    P.DeletePerson(idToDelete);
+                                    System.Console.WriteLine($"{P.Name} has been deleted.");
+                                    Console.Read();
+                                }
+                                break;
+                            case "N":
+                                {
+                                    System.Console.WriteLine("No one has been deleted.");
+                                    Console.Read();
+                                }
+                                break;
+                            default:
+                                {
+                                    System.Console.WriteLine("Wrong input.");
+                                    Console.Read();
+                                }
+                                break;
+                        }
+                        break;
                     }
-                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Id does not exist! Press any key...");
+                    Console.Read();
+                }
             }
         }
         //NOTE: Can't deal with spaces, throws an error.
