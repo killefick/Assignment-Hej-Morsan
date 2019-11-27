@@ -33,6 +33,7 @@ namespace ClassLibHejMorsan
                     case "1":
                         {
                             AddPerson(P);
+                            P.GetPersons();
                             break;
                         }
                     case "2":
@@ -43,6 +44,7 @@ namespace ClassLibHejMorsan
                     case "3":
                         {
                             DeletePerson(P);
+                            P.GetPersons();
                             break;
                         }
 
