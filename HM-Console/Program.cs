@@ -15,7 +15,7 @@ namespace ClassLibHejMorsan
                 //Console.Clear();
                 //Increases days
                 day++;
-                Console.WriteLine("Det är dag " + day + ":");
+                Console.WriteLine($"Det är dag: {day}");
                 Console.WriteLine("-------");
 
                 //Runs The program

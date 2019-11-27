@@ -75,7 +75,7 @@ namespace ClassLibHejMorsan
             {
                 bool waitForCorrectInput = true;
                 // print person's details
-                Console.WriteLine($"{person.Name}: {person.CountDownTick}");
+                Console.WriteLine($"Namn: {person.Name}         Födelsedag: {person.Birthday}            Mors-O-Meter: {person.CountDownTick}");
 
                 if (newCountdown.TimeToCallMom(person) == true)
                 {
