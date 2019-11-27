@@ -19,6 +19,8 @@ namespace ClassLibHejMorsan
 
             while (true)
             {
+                int Statementvalue = 0;
+                int typeOfInserttoDB = 0;
                 System.Console.WriteLine("");
                 System.Console.WriteLine("[1] Add a new Person");
                 System.Console.WriteLine("[2] Update Person");
@@ -32,13 +34,17 @@ namespace ClassLibHejMorsan
                 {
                     case "1":
                         {
-                            AddPerson(P);
+                            typeOfInserttoDB = 1;
+                            AddorUpdatePerson(P, Statementvalue, typeOfInserttoDB);
                             P.GetPersons();
                             break;
                         }
                     case "2":
                         {
-                            // UpdatePerson(P);
+                            Statementvalue = 2;
+                            typeOfInserttoDB = 2;
+                            AddorUpdatePerson(P, Statementvalue, typeOfInserttoDB);
+                            P.GetPersons();
                             break;
                         }
                     case "3":
@@ -104,6 +110,7 @@ namespace ClassLibHejMorsan
         }
 
         // deletes a person from DB
+        //WORKS AS INTENDED
         private void DeletePerson(Person P)
         {
             int idToDelete = 0;
@@ -202,15 +209,51 @@ namespace ClassLibHejMorsan
                 }
             }
         }
+
+        //Adds or Updates a person depending on the values set in the menu, to the database
         // Works as intended!
-        private void AddPerson(Person P)
+        private void AddorUpdatePerson(Person P, int Statementvalue, int typeOfInserttoDB)
         {
             string name = "";
             string phone = "";
             string birthday = "";
             int counter = 0;
+            int IdToUpdate = 0;
 
             bool checkInput = true;
+
+            if (Statementvalue == 2)
+            {
+                bool enteredInt = false;
+
+                while (true)
+                {
+                    //Changed from a for loop to a foreach loop to make sure we don't fall out of scope
+                    //And to make it easier to get to the persons ID
+                    foreach (var person in P.myPersons)
+                    {
+                        System.Console.WriteLine($"Id: {person.Id} {person.Name}");
+                    }
+
+                    while (!enteredInt)
+                    {
+                        // ask for person's id to be deleted
+                        System.Console.Write("Enter ID of person to update: ");
+                        // try to get a number
+                        try
+                        {
+                            IdToUpdate = Convert.ToInt32(Console.ReadLine());
+                            enteredInt = true;
+                        }
+                        catch
+                        {
+                            System.Console.WriteLine("Enter a number!");
+
+                        }
+                    }
+                }
+            }
+
             while (checkInput)
             {
                 System.Console.Write("Enter Name: ");
@@ -268,77 +311,44 @@ namespace ClassLibHejMorsan
             while (checkInput)
             {
                 System.Console.Write("Enter the time interval (max 365): ");
-                try{
-                counter = int.Parse(Console.ReadLine());
-                checkInput=false;
+                try
+                {
+                    counter = int.Parse(Console.ReadLine());
+                    checkInput = false;
                 }
-                catch{
-                    checkInput=true;
+                catch
+                {
+                    checkInput = true;
                 }
-                
-                if (counter <= 365 && checkInput== false)
+
+                if (counter <= 365 && checkInput == false)
                 {
                     checkInput = false;
                 }
                 else
                 {
                     Console.WriteLine("Enter a number of max 365 days!");
-                    checkInput=true;
+                    checkInput = true;
                 }
             }
 
-            // add person to DB
-            P.AddPerson(name, phone.ToString(), birthday.ToString(), counter);
-            
-            System.Console.WriteLine($"{name} has been added to the list. Press any key...");
-            Console.ReadLine();
+            switch (typeOfInserttoDB)
+            {
+                case 1:
+                    {
+                        // add person to DB
+                        P.AddPerson(name, phone.ToString(), birthday.ToString(), counter);
+
+                        System.Console.WriteLine($"{name} has been added to the list. Press any key...");
+                        Console.ReadLine();
+                    }
+                    break;
+                case 2:
+                    {
+                        P.UpdatePerson(IdToUpdate, name, phone, birthday, counter);
+                    }
+                    break;
+            }
         }
-
-        //NOTE: Throws an error, not sure why.
-        // TODO: Fix Error!
-
-        //NOTE: Only works if we display the database ID atm (Same as Deleteperson)
-        // TODO: Somehow fix so that it displays the index number, but uses the id in the database
-
-        //     private void UpdatePerson(Person P)
-        //     {
-        //         int IdToUpdate = 0;
-        //         for (int i = 0; i < P.myPersons.Count; i++)
-        //         {
-
-        //             System.Console.WriteLine($"{P.myPersons[i].Id}. {P.myPersons[i].Name}");
-        //         }
-        //         System.Console.WriteLine("Which Person would you like to Update?");
-        //         try
-        //         {
-        //             IdToUpdate = int.Parse(Console.ReadLine());
-        //         }
-        //         catch
-        //         {
-        //             System.Console.WriteLine("Wrong input, try again");
-        //         }
-        //         string name;
-        //         string phone;
-        //         string birthday;
-        //         int counter = 0;
-
-        //         System.Console.Write("Enter Name: ");
-        //         name = Console.ReadLine();
-        //         System.Console.Write("Enter TelePhone number: ");
-        //         phone = Console.ReadLine();
-        //         System.Console.Write("Enter Birthday: ");
-        //         birthday = Console.ReadLine();
-        //         System.Console.Write("Enter The Time interval: ");
-        //         try
-        //         {
-        //             counter = int.Parse(Console.ReadLine());
-        //         }
-        //         catch
-        //         {
-        //             System.Console.WriteLine("Wrong input, try again");
-        //         }
-        //         P.UpdatePerson(IdToUpdate, name, phone, birthday, counter);
-
-        //     }
     }
 }

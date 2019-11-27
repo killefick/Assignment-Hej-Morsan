@@ -81,7 +81,7 @@ namespace ClassLibHejMorsan
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    connection.Query<Person>($"EXEC UpdatePerson {id} {name} {phone} {birthday} {counter}");
+                    connection.Query<Person>($"EXEC UpdatePerson {id}, {name}, '{phone}', '{birthday}', {counter}, {counter}");
                 }
 
             }
@@ -100,6 +100,7 @@ namespace ClassLibHejMorsan
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Query<Person>($"EXEC AddPerson {name}, '{phone}', '{birthday}', {counter}, {counter} ");
+
                 }
 
             }
