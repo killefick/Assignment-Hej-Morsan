@@ -37,7 +37,7 @@ namespace ClassLibHejMorsan
                         }
                     case "2":
                         {
-                            UpdatePerson(P);
+                            // UpdatePerson(P);
                             break;
                         }
                     case "3":
@@ -48,7 +48,7 @@ namespace ClassLibHejMorsan
 
                     case "4":
                         return false;
-                        
+
                     default:
                         return true;
                 }
@@ -116,10 +116,6 @@ namespace ClassLibHejMorsan
                     System.Console.WriteLine($"Id: {person.Id} {person.Name}");
                 }
 
-                // NOTE:
-                // When ID doesn't exist an the loop resets, this loop goes through the try catch w/o
-                //waiting for user input.
-                // TODO: Fix that unnecessary loop
                 while (!enteredInt)
                 {
                     // ask for person's id to be deleted
@@ -267,19 +263,32 @@ namespace ClassLibHejMorsan
             checkInput = true;
             while (checkInput)
             {
+                // check for int
                 System.Console.Write("Enter the time interval (max 365): ");
-                counter = int.Parse(Console.ReadLine());
-                if (counter <= 365)
+                try
                 {
-                    checkInput = false;
+                    counter = int.Parse(Console.ReadLine());
                 }
-                else
+                catch
                 {
-                    Console.WriteLine("Enter max 365 days!");
+                    Console.WriteLine("Enter a number!");
+                }
+
+                // // check for number
+                while (checkInput)
+                {
+                    if (counter <= 365)
+                    {
+                        checkInput = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Enter max 365 days!");
+                    }
                 }
             }
 
-
+            // add person to DB
             P.AddPerson(name, phone.ToString(), birthday.ToString(), counter);
             System.Console.WriteLine($"{name} has been added to the list. Press any key...");
             Console.Read();
@@ -291,45 +300,45 @@ namespace ClassLibHejMorsan
         //NOTE: Only works if we display the database ID atm (Same as Deleteperson)
         // TODO: Somehow fix so that it displays the index number, but uses the id in the database
 
-        private void UpdatePerson(Person P)
-        {
-            int IdToUpdate = 0;
-            for (int i = 0; i < P.myPersons.Count; i++)
-            {
+        //     private void UpdatePerson(Person P)
+        //     {
+        //         int IdToUpdate = 0;
+        //         for (int i = 0; i < P.myPersons.Count; i++)
+        //         {
 
-                System.Console.WriteLine($"{P.myPersons[i].Id}. {P.myPersons[i].Name}");
-            }
-            System.Console.WriteLine("Which Person would you like to Update?");
-            try
-            {
-                IdToUpdate = int.Parse(Console.ReadLine());
-            }
-            catch
-            {
-                System.Console.WriteLine("Wrong input, try again");
-            }
-            string name;
-            string phone;
-            string birthday;
-            int counter = 0;
+        //             System.Console.WriteLine($"{P.myPersons[i].Id}. {P.myPersons[i].Name}");
+        //         }
+        //         System.Console.WriteLine("Which Person would you like to Update?");
+        //         try
+        //         {
+        //             IdToUpdate = int.Parse(Console.ReadLine());
+        //         }
+        //         catch
+        //         {
+        //             System.Console.WriteLine("Wrong input, try again");
+        //         }
+        //         string name;
+        //         string phone;
+        //         string birthday;
+        //         int counter = 0;
 
-            System.Console.Write("Enter Name: ");
-            name = Console.ReadLine();
-            System.Console.Write("Enter TelePhone number: ");
-            phone = Console.ReadLine();
-            System.Console.Write("Enter Birthday: ");
-            birthday = Console.ReadLine();
-            System.Console.Write("Enter The Time interval: ");
-            try
-            {
-                counter = int.Parse(Console.ReadLine());
-            }
-            catch
-            {
-                System.Console.WriteLine("Wrong input, try again");
-            }
-            P.UpdatePerson(IdToUpdate, name, phone, birthday, counter);
+        //         System.Console.Write("Enter Name: ");
+        //         name = Console.ReadLine();
+        //         System.Console.Write("Enter TelePhone number: ");
+        //         phone = Console.ReadLine();
+        //         System.Console.Write("Enter Birthday: ");
+        //         birthday = Console.ReadLine();
+        //         System.Console.Write("Enter The Time interval: ");
+        //         try
+        //         {
+        //             counter = int.Parse(Console.ReadLine());
+        //         }
+        //         catch
+        //         {
+        //             System.Console.WriteLine("Wrong input, try again");
+        //         }
+        //         P.UpdatePerson(IdToUpdate, name, phone, birthday, counter);
 
-        }
+        //     }
     }
 }
