@@ -219,15 +219,18 @@ namespace ClassLibHejMorsan
             string birthday = "";
             int counter = 0;
             int IdToUpdate = 0;
-
+            bool matchinDB = true;
+            bool enteredInt = false;
             bool checkInput = true;
+            bool Majorloop = true;
 
             if (Statementvalue == 2)
             {
-                bool enteredInt = false;
 
-                while (true)
+                while (Majorloop)
                 {
+                    enteredInt = false;
+
                     //Changed from a for loop to a foreach loop to make sure we don't fall out of scope
                     //And to make it easier to get to the persons ID
                     foreach (var person in P.myPersons)
@@ -250,8 +253,30 @@ namespace ClassLibHejMorsan
                             System.Console.WriteLine("Enter a number!");
 
                         }
+
+                    }
+                    foreach (var person in P.myPersons)
+                    {
+                        if (person.Id == IdToUpdate)
+                        {
+                            matchinDB = true;
+                            Majorloop= false;
+                            break;
+                        }
+
+                        else
+                        {
+                            matchinDB = false;
+                        }
+                    }
+                    if (!matchinDB)
+                    {
+                        Console.WriteLine("Id does not exist! Press any key...");
+                        enteredInt = false;
+                        Console.ReadLine();
                     }
                 }
+
             }
 
             while (checkInput)
@@ -346,6 +371,7 @@ namespace ClassLibHejMorsan
                 case 2:
                     {
                         P.UpdatePerson(IdToUpdate, name, phone, birthday, counter);
+                        System.Console.WriteLine($"{name} has been updated. Press any key...");
                     }
                     break;
             }
