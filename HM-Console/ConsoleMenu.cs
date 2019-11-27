@@ -227,19 +227,18 @@ namespace ClassLibHejMorsan
             {
                 System.Console.Write("Enter Telephone number: ");
                 phone = Console.ReadLine();
-                if (phone.Length <= 20)
+                if (phone.Length <= 20 && phone.Length > 10)
                 {
                     checkInput = false;
                 }
                 else
                 {
-                    Console.WriteLine("Enter max 20 numbers!");
+                    Console.WriteLine("Enter between 10 and 20 numbers!");
                 }
             }
 
             // https://www.regular-expressions.info/dates.html
             // https://stackoverflow.com/questions/8764827/c-sharp-regex-validation-rule-using-regex-match
-
             var regex = @"^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$";
 
             checkInput = true;
@@ -280,8 +279,6 @@ namespace ClassLibHejMorsan
             P.AddPerson(name, phone.ToString(), birthday.ToString(), counter);
             System.Console.WriteLine($"{name} has been added to the list. Press any key...");
             Console.Read();
-            Console.Clear();
-
         }
 
         //NOTE: Throws an error, not sure why.
