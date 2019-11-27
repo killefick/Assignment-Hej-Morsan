@@ -280,7 +280,7 @@ namespace ClassLibHejMorsan
                 }
                 else
                 {
-                    Console.WriteLine("Enter max 365 days!");
+                    Console.WriteLine("Enter a number of max 365 days!");
                     checkInput=true;
                 }
             }
