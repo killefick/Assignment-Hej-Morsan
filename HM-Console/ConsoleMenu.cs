@@ -1,5 +1,5 @@
 using System;
-
+using System.Text.RegularExpressions;
 using ClassLibHejMorsan;
 
 namespace ClassLibHejMorsan
@@ -66,10 +66,11 @@ namespace ClassLibHejMorsan
 
                 if (newCountdown.TimeToCallMom(person) == true)
                 {
+                    string input = "";
                     while (waitForCorrectInput)
                     {
                         Console.WriteLine($"Do you want to call {person.Name}? \n[Y]es or [N]o: ");
-                        string input = Console.ReadLine();
+                        input = Console.ReadLine();
                         string userInput = input.ToUpper();
 
                         switch (userInput)
@@ -103,7 +104,7 @@ namespace ClassLibHejMorsan
 
             while (true)
             {
-                idToDelete=0;
+                idToDelete = 0;
                 //Changed from a for loop to a foreach loop to make sure we don't fall out of scope
                 //And to make it easier to get to the persons ID
                 foreach (var person in P.myPersons)
@@ -139,9 +140,9 @@ namespace ClassLibHejMorsan
 
                 // Changed from for to foreach for the same reasons as for above, we never fall out of the list
                 //and we don't have to go through an index to get to the persons ID
-                    foreach (var person in P.myPersons)
-                    {
-                    if ( person.Id== idToDelete)
+                foreach (var person in P.myPersons)
+                {
+                    if (person.Id == idToDelete)
                     {
                         match = true;
                         break;
@@ -193,30 +194,91 @@ namespace ClassLibHejMorsan
                 else
                 {
                     Console.WriteLine("Id does not exist! Press any key...");
-                    enteredInt=false;
+                    enteredInt = false;
                     Console.Read();
                 }
             }
         }
-            // Works as intended!
+        // Works as intended!
         private void AddPerson(Person P)
         {
-            string name;
-            string phone;
-            string birthday;
-            int counter;
+            string name = "";
+            string phone = "";
+            string birthday = "";
+            int counter = 0;
 
-            System.Console.Write("Enter Name: ");
-            name = Console.ReadLine();
-            System.Console.Write("Enter Telephone number: ");
-            phone = Console.ReadLine();
-            System.Console.Write("Enter Birthday: ");
-            birthday = Console.ReadLine();
-            System.Console.Write("Enter The Time interval: ");
-            counter = int.Parse(Console.ReadLine());
+            bool checkInput = true;
+            while (checkInput)
+            {
+                System.Console.Write("Enter Name: ");
+                name = Console.ReadLine();
+                if (name.Length <= 50)
+                {
+                    checkInput = false;
+                }
+                else
+                {
+                    Console.WriteLine("Enter max 50 characters!");
+                }
+            }
+
+            checkInput = true;
+            while (checkInput)
+            {
+                System.Console.Write("Enter Telephone number: ");
+                phone = Console.ReadLine();
+                if (phone.Length <= 20)
+                {
+                    checkInput = false;
+                }
+                else
+                {
+                    Console.WriteLine("Enter max 20 numbers!");
+                }
+            }
+
+            // https://www.regular-expressions.info/dates.html
+            // https://stackoverflow.com/questions/8764827/c-sharp-regex-validation-rule-using-regex-match
+
+            var regex = @"^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$";
+
+            checkInput = true;
+            while (checkInput)
+            {
+                System.Console.Write("Enter Birthday (YYYY-MM-DD): ");
+                birthday = Console.ReadLine();
+
+                var match = Regex.Match(birthday, regex, RegexOptions.IgnoreCase);
+                if (match.Success)
+                {
+                    // does match
+                    checkInput = false;
+                }
+
+                else
+                {
+                    Console.WriteLine("Enter format YYYY-MM-DD)!");
+                }
+            }
+
+            checkInput = true;
+            while (checkInput)
+            {
+                System.Console.Write("Enter the time interval (max 365): ");
+                counter = int.Parse(Console.ReadLine());
+                if (counter <= 365)
+                {
+                    checkInput = false;
+                }
+                else
+                {
+                    Console.WriteLine("Enter max 365 days!");
+                }
+            }
+
 
             P.AddPerson(name, phone.ToString(), birthday.ToString(), counter);
-            System.Console.WriteLine($"{name} has been added to the list.");
+            System.Console.WriteLine($"{name} has been added to the list. Press any key...");
             Console.Read();
             Console.Clear();
 
