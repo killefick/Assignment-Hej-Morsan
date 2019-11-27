@@ -31,7 +31,6 @@ namespace ClassLibHejMorsan
             }
             catch (System.Exception)
             {
-
                 throw;
             }
         }
@@ -68,7 +67,6 @@ namespace ClassLibHejMorsan
             }
             catch (System.Exception)
             {
-
                 throw;
             }
         }
@@ -87,7 +85,6 @@ namespace ClassLibHejMorsan
             }
             catch (System.Exception)
             {
-
                 throw;
             }
         }
@@ -100,17 +97,13 @@ namespace ClassLibHejMorsan
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Query<Person>($"EXEC AddPerson {name}, '{phone}', '{birthday}', {counter}, {counter} ");
-
                 }
 
             }
             catch (System.Exception)
             {
-
                 throw;
             }
         }
     }
-    // EXEC AddPerson 'Pelle', '073-123456', '2019-08-09', 5, 5
-    // EXEC AddPerson {name}, {phone}, {birthday}, {counter}, {initialCounter} 
 }

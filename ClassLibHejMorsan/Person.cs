@@ -4,7 +4,6 @@ namespace ClassLibHejMorsan
     // Create a PUBLIC class that maps to our SQL Table 
     // (or the QUERY – if the table contains more than that!)
     // Columns not mentioned in class will be ignored
-
     public class Person
     {
         public int Id { get; set; }
@@ -16,9 +15,7 @@ namespace ClassLibHejMorsan
         public int initialCounter { get; set; }
         public int Overdue { get; set; }
 
-        // (List is supposed to be static because the list is global.)
         public List<Person> myPersons = new List<Person>();
-
 
         string connectionString = "Server=40.85.84.155;Database=Student13;User=Student13;Password=YH-student@2019;";
 

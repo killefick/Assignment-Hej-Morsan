@@ -6,13 +6,9 @@ namespace ClassLibHejMorsan
 {
     class ConsoleMenu
     {
-        // Person P = new Person();
         CountDown newCountdown = new CountDown();
 
-        //The Menu, it's type is a bool because we only want to switch to a new day when we explicitly says so.
-
-        //NOTE: WHen you have used one of the menuoptions, it loops once more and if you have someone to call it gets
-        //stuck in that loop for infinity!
+        //The Menu type is bool because we only want to switch to a new day when we explicitly says so.
         public bool StartMenu(Person P)
         {
             string userInput = "";
@@ -34,8 +30,10 @@ namespace ClassLibHejMorsan
                 {
                     case "1":
                         {
+                            //TODO: explain what this does
                             typeOfInserttoDB = 1;
                             AddorUpdatePerson(P, Statementvalue, typeOfInserttoDB);
+                            // refreshes person list
                             P.GetPersons();
                             break;
                         }
@@ -53,7 +51,7 @@ namespace ClassLibHejMorsan
                             P.GetPersons();
                             break;
                         }
-
+                    // quit program
                     case "4":
                         return false;
 
@@ -66,7 +64,6 @@ namespace ClassLibHejMorsan
         //The daily loop fetches the saved database, runs through it, person by person.
         //Gives the user the option to call if the counter has reached zero.
         //Otherwise triggers an overduecounter to display how many days overdue the user is.
-        //WORKS AS INTENDED
         public void DailyLoop(Person P)
         {
             // load persons from DB
@@ -75,7 +72,7 @@ namespace ClassLibHejMorsan
             {
                 bool waitForCorrectInput = true;
                 // print person's details
-                Console.WriteLine($"Namn: {person.Name}         Födelsedag: {person.Birthday}            Mors-O-Meter: {person.CountDownTick}");
+                Console.WriteLine($"Namn: {person.Name}\tFödelsedag: {person.Birthday}\tMors-O-Meter: {person.CountDownTick}");
 
                 if (newCountdown.TimeToCallMom(person) == true)
                 {
@@ -110,7 +107,6 @@ namespace ClassLibHejMorsan
         }
 
         // deletes a person from DB
-        //WORKS AS INTENDED
         private void DeletePerson(Person P)
         {
             int idToDelete = 0;
@@ -119,8 +115,6 @@ namespace ClassLibHejMorsan
             while (true)
             {
                 idToDelete = 0;
-                //Changed from a for loop to a foreach loop to make sure we don't fall out of scope
-                //And to make it easier to get to the persons ID
                 foreach (var person in P.myPersons)
                 {
                     System.Console.WriteLine($"Id: {person.Id} {person.Name}");
@@ -139,17 +133,13 @@ namespace ClassLibHejMorsan
                     catch
                     {
                         System.Console.WriteLine("Enter a number!");
-
                     }
                 }
-
 
                 // check if list of persons contains input ID
                 string UserConfirmation = "";
                 bool match = false;
 
-                // Changed from for to foreach for the same reasons as for above, we never fall out of the list
-                //and we don't have to go through an index to get to the persons ID
                 foreach (var person in P.myPersons)
                 {
                     if (person.Id == idToDelete)
@@ -201,6 +191,7 @@ namespace ClassLibHejMorsan
                         break;
                     }
                 }
+
                 else
                 {
                     Console.WriteLine("Id does not exist! Press any key...");
@@ -211,7 +202,6 @@ namespace ClassLibHejMorsan
         }
 
         //Adds or Updates a person depending on the values set in the menu, to the database
-        // Works as intended!
         private void AddorUpdatePerson(Person P, int Statementvalue, int typeOfInserttoDB)
         {
             string name = "";
@@ -231,8 +221,6 @@ namespace ClassLibHejMorsan
                 {
                     enteredInt = false;
 
-                    //Changed from a for loop to a foreach loop to make sure we don't fall out of scope
-                    //And to make it easier to get to the persons ID
                     foreach (var person in P.myPersons)
                     {
                         System.Console.WriteLine($"Id: {person.Id} {person.Name}");
@@ -253,14 +241,13 @@ namespace ClassLibHejMorsan
                             System.Console.WriteLine("Enter a number!");
 
                         }
-
                     }
                     foreach (var person in P.myPersons)
                     {
                         if (person.Id == IdToUpdate)
                         {
                             matchinDB = true;
-                            Majorloop= false;
+                            Majorloop = false;
                             break;
                         }
 
@@ -276,29 +263,33 @@ namespace ClassLibHejMorsan
                         Console.ReadLine();
                     }
                 }
-
             }
 
             while (checkInput)
             {
                 System.Console.Write("Enter Name: ");
                 name = Console.ReadLine();
-                if (name.Length <= 50)
+                if (name.Length <= 50 && name.Length > 2)
                 {
                     checkInput = false;
                 }
                 else
                 {
-                    Console.WriteLine("Enter max 50 characters!");
+                    Console.WriteLine("Enter between 3 and 50 characters!");
                 }
             }
 
+            // https://stackoverflow.com/questions/8764827/c-sharp-regex-validation-rule-using-regex-match
+            // https://stackoverflow.com/questions/20678300/sweden-phone-number-regular-expression
+            var regex = @"^([+]46)\s*(7[0236])\s*(\d{4})\s*(\d{3})$";
             checkInput = true;
             while (checkInput)
             {
                 System.Console.Write("Enter Telephone number: ");
                 phone = Console.ReadLine();
-                if (phone.Length <= 20 && phone.Length > 9)
+                var match = Regex.Match(phone, regex, RegexOptions.IgnoreCase);
+
+                if (match.Success)
                 {
                     checkInput = false;
                 }
@@ -309,8 +300,7 @@ namespace ClassLibHejMorsan
             }
 
             // https://www.regular-expressions.info/dates.html
-            // https://stackoverflow.com/questions/8764827/c-sharp-regex-validation-rule-using-regex-match
-            var regex = @"^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$";
+            regex = @"^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$";
 
             checkInput = true;
             while (checkInput)
@@ -327,7 +317,7 @@ namespace ClassLibHejMorsan
 
                 else
                 {
-                    Console.WriteLine("Enter format YYYY-MM-DD)!");
+                    Console.WriteLine("Enter a valid date, format YYYY-MM-DD)!");
                 }
             }
 
@@ -370,6 +360,7 @@ namespace ClassLibHejMorsan
                     break;
                 case 2:
                     {
+                        // update person
                         P.UpdatePerson(IdToUpdate, name, phone, birthday, counter);
                         System.Console.WriteLine($"{name} has been updated. Press any key...");
                     }

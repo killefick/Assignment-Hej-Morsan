@@ -12,13 +12,9 @@ namespace ClassLibHejMorsan
 
             while (loop)
             {
-                //Console.Clear();
-                //Increases days
                 day++;
                 Console.WriteLine($"Det är dag: {day}");
                 Console.WriteLine("-------");
-
-                //Runs The program
                 newConsole.DailyLoop(P);
                 loop = newConsole.StartMenu(P);
             }
