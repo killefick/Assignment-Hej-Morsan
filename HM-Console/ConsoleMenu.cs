@@ -295,7 +295,7 @@ namespace ClassLibHejMorsan
                 }
                 else
                 {
-                    Console.WriteLine("Enter between 10 and 20 numbers!");
+                    Console.WriteLine("Valid format is: +46 70 5689 123 or +46705689123");
                 }
             }
 

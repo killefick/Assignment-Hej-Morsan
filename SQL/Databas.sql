@@ -12,7 +12,7 @@ CREATE TABLE Persons
 (
 	Id             int         IDENTITY(1,1),
 	Name           varchar(50),
-	Phone          varchar(20),
+	Phone          varchar(30),
 	Birthday       varchar(10),
 	Counter        int,
 	InitialCounter int
@@ -25,19 +25,19 @@ AS
 INSERT INTO Persons
 	(Name, Phone, Birthday, Counter, InitialCounter)
 VALUES
-	('Mamma', '076-234 22 24', '1954-03-23', 3, 3)
+	('Mamma', '+46 70 5689 123', '1954-03-23', 3, 3)
 INSERT INTO Persons
 	(Name, Phone, Birthday, Counter, InitialCounter)
 VALUES
-	('Pappa', '072-234 24 24', '1944-06-13', 7, 7)
+	('Pappa', '+46 70 4455 543', '1944-06-13', 7, 7)
 INSERT INTO Persons
 	(Name, Phone, Birthday, Counter, InitialCounter)
 VALUES
-	('Mormor', '076-224 12 24', '1914-12-12', 15, 15)
+	('Mormor', '+46 70 1356 634', '1914-12-12', 15, 15)
 INSERT INTO Persons
 	(Name, Phone, Birthday, Counter, InitialCounter)
 VALUES
-	('Syrran', '077-277 77 24', '2008-11-11', 11, 11)
+	('Syrran', '+46 70 2366 154', '2008-11-11', 11, 11)
 GO
 
 EXEC InitDB
@@ -78,7 +78,7 @@ GO
 -- AddPerson
 CREATE OR ALTER PROCEDURE AddPerson
 	@Name varchar(50),
-	@Phone varchar(20),
+	@Phone varchar(30),
 	@Birthday varchar(10),
 	@Counter int,
 	@InitialCounter int

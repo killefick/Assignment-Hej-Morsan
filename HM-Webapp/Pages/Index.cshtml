@@ -39,7 +39,7 @@
       }
         <tr>
         <td>@item.Name</td>
-        <td><a href="/ResetPerson/?id=@item.Id&counter=@item.initialCounter" class="btn btn-info" role="button">Skicka SMS</a></td>
+        <td><a href="/ResetPerson/?id=@item.Id&counter=@item.initialCounter" class="btn btn-info" role="button">@item.Phone</a></td>
         <td>@item.Birthday</td>
         <td class=@barColor><h5>@item.Counter</h5></td>
         <td><a href="/EditPerson?id=@item.Id&name=@item.Name&phone=@item.Phone&birthday=@item.Birthday&counter=@item.Counter" class="btn btn-info" role="button" id="@item.Id">Ändra</a></td>
