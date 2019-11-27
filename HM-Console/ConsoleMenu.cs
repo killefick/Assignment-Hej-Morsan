@@ -260,31 +260,34 @@ namespace ClassLibHejMorsan
                 }
             }
 
+            // check for int
             checkInput = true;
             while (checkInput)
             {
-                // check for int
                 System.Console.Write("Enter the time interval (max 365): ");
                 try
                 {
                     counter = int.Parse(Console.ReadLine());
+                    checkInput = false;
                 }
                 catch
                 {
                     Console.WriteLine("Enter a number!");
                 }
+            }
 
-                // // check for number
-                while (checkInput)
+            // // check for number
+            checkInput = true;
+            while (checkInput)
+            {
+                if (counter <= 365)
                 {
-                    if (counter <= 365)
-                    {
-                        checkInput = false;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Enter max 365 days!");
-                    }
+                    checkInput = false;
+                }
+                else
+                {
+                    Console.WriteLine("Enter max 365 days!");
+                    Console.ReadLine();
                 }
             }
 
