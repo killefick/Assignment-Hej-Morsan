@@ -131,7 +131,7 @@ SET Counter = @InitialCounter
 WHERE Id = @Id
 GO
 
-EXEC UpdateCounter 1, -1
+EXEC UpdateCounter 1, 8
 GO
 
 
