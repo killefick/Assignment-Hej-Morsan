@@ -91,7 +91,7 @@ namespace ClassLibHejMorsan
 
                             default:
                                 Console.WriteLine("Please write Y or N!");
-                                Console.Read();
+                                Console.ReadLine();
                                 break;
                         }
                     }
@@ -176,19 +176,19 @@ namespace ClassLibHejMorsan
                                     System.Console.WriteLine("Person has been deleted. Press any key...");
 
                                     P.DeletePerson(idToDelete);
-                                    Console.Read();
+                                    Console.ReadLine();
                                     return;
                                 }
                             case "N":
                                 {
                                     System.Console.WriteLine("No one has been deleted. Press any key...");
-                                    Console.Read();
+                                    Console.ReadLine();
                                     return;
                                 }
                             default:
                                 {
                                     System.Console.WriteLine("Wrong input.");
-                                    Console.Read();
+                                    Console.ReadLine();
                                     break;
                                 }
                         }
@@ -199,7 +199,7 @@ namespace ClassLibHejMorsan
                 {
                     Console.WriteLine("Id does not exist! Press any key...");
                     enteredInt = false;
-                    Console.Read();
+                    Console.ReadLine();
                 }
             }
         }
@@ -281,8 +281,9 @@ namespace ClassLibHejMorsan
 
 
             P.AddPerson(name, phone.ToString(), birthday.ToString(), counter);
+            
             System.Console.WriteLine($"{name} has been added to the list. Press any key...");
-            Console.Read();
+            Console.ReadLine();
         }
 
         //NOTE: Throws an error, not sure why.
