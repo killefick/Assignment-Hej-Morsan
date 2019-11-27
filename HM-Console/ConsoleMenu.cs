@@ -58,6 +58,7 @@ namespace ClassLibHejMorsan
         //The daily loop fetches the saved database, runs through it, person by person.
         //Gives the user the option to call if the counter has reached zero.
         //Otherwise triggers an overduecounter to display how many days overdue the user is.
+        //WORKS AS INTENDED
         public void DailyLoop(Person P)
         {
             // load persons from DB
@@ -231,7 +232,7 @@ namespace ClassLibHejMorsan
             {
                 System.Console.Write("Enter Telephone number: ");
                 phone = Console.ReadLine();
-                if (phone.Length <= 20 && phone.Length > 10)
+                if (phone.Length <= 20 && phone.Length > 9)
                 {
                     checkInput = false;
                 }
@@ -268,14 +269,22 @@ namespace ClassLibHejMorsan
             while (checkInput)
             {
                 System.Console.Write("Enter the time interval (max 365): ");
+                try{
                 counter = int.Parse(Console.ReadLine());
-                if (counter <= 365)
+                checkInput=false;
+                }
+                catch{
+                    checkInput=true;
+                }
+                
+                if (counter <= 365 && checkInput== false)
                 {
                     checkInput = false;
                 }
                 else
                 {
                     Console.WriteLine("Enter max 365 days!");
+                    checkInput=true;
                 }
             }
 
