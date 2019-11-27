@@ -20,7 +20,7 @@ namespace ClassLibHejMorsan
 
                 //Runs The program
                 newConsole.DailyLoop(P);
-                loop = newConsole.StartMenu(P); 
+                loop = newConsole.StartMenu(P);
             }
         }
     }

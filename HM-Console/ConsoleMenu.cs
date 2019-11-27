@@ -23,6 +23,7 @@ namespace ClassLibHejMorsan
                 System.Console.WriteLine("[1] Add a new Person");
                 System.Console.WriteLine("[2] Update Person");
                 System.Console.WriteLine("[3] Delete Person");
+                System.Console.WriteLine("[4] Quit");
                 System.Console.WriteLine("Make a choice or press any key to skip to next day...");
 
                 userInput = Console.ReadLine();
@@ -44,10 +45,13 @@ namespace ClassLibHejMorsan
                             DeletePerson(P);
                             break;
                         }
+
+                    case "4":
+                        return false;
+                        
                     default:
                         return true;
                 }
-                return true;
             }
         }
 
