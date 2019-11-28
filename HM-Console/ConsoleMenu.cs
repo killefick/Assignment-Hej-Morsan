@@ -269,19 +269,21 @@ namespace ClassLibHejMorsan
             {
                 System.Console.Write("Enter Name: ");
                 name = Console.ReadLine();
-                if (name.Length <= 50 && name.Length > 2)
+                if (name.Length <= 50 && name.Length > 1)
                 {
                     checkInput = false;
                 }
                 else
                 {
-                    Console.WriteLine("Enter between 3 and 50 characters!");
+                    Console.WriteLine("Enter between 2 and 50 characters!");
                 }
             }
 
             // https://stackoverflow.com/questions/8764827/c-sharp-regex-validation-rule-using-regex-match
             // https://stackoverflow.com/questions/20678300/sweden-phone-number-regular-expression
-            var regex = @"^([+]46)\s*(7[0236])\s*(\d{4})\s*(\d{3})$";
+            // https://regex101.com/r/kF1uH5/2
+            // var regex = @"^([+]46)\s*(7[0236])\s*(\d{4})\s*(\d{3})$";
+            var regex = @"[0-9]{2,4}-[0-9]{2,3}\s[0-9]{2,3}\s[0-9]{2,3}$";
             checkInput = true;
             while (checkInput)
             {
@@ -295,7 +297,7 @@ namespace ClassLibHejMorsan
                 }
                 else
                 {
-                    Console.WriteLine("Valid format is: +46 70 5689 123 or +46705689123");
+                    Console.WriteLine("Valid format is: 99-999 999 99, 99-999 99 99, 999-99 99 99");
                 }
             }
 
