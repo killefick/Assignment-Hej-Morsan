@@ -12,7 +12,7 @@ CREATE TABLE Persons
 (
 	Id             int         IDENTITY(1,1),
 	Name           varchar(50),
-	Phone          varchar(30),
+	Phone          varchar(30) UNIQUE,
 	Birthday       varchar(10),
 	Counter        int,
 	InitialCounter int
