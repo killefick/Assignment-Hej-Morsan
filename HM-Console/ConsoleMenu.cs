@@ -280,9 +280,7 @@ namespace ClassLibHejMorsan
             }
 
             // https://stackoverflow.com/questions/8764827/c-sharp-regex-validation-rule-using-regex-match
-            // https://stackoverflow.com/questions/20678300/sweden-phone-number-regular-expression
             // https://regex101.com/r/kF1uH5/2
-            // var regex = @"^([+]46)\s*(7[0236])\s*(\d{4})\s*(\d{3})$";
             var regex = @"[0-9]{2,4}-[0-9]{2,3}\s[0-9]{2,3}\s[0-9]{2,3}$";
             checkInput = true;
             while (checkInput)
