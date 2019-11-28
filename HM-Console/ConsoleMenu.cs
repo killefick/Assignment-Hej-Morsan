@@ -7,6 +7,7 @@ namespace ClassLibHejMorsan
     class ConsoleMenu
     {
         CountDown newCountdown = new CountDown();
+        ErrorHandling err = new ErrorHandling();
 
         //The Menu type is bool because we only want to switch to a new day when we explicitly says so.
         public bool StartMenu(Person P)
@@ -30,7 +31,7 @@ namespace ClassLibHejMorsan
                 {
                     case "1":
                         {
-                            //TODO: explain what this does
+                            //This variable decides which type of insert to DB we are doing, 1= addperson
                             typeOfInserttoDB = 1;
                             AddorUpdatePerson(P, Statementvalue, typeOfInserttoDB);
                             // refreshes person list
@@ -39,7 +40,9 @@ namespace ClassLibHejMorsan
                         }
                     case "2":
                         {
+                            //Statementvalue 2 means that we are adding an option to chooose which ID to change
                             Statementvalue = 2;
+                            // typeofinserttoDB = 2 means that we are updating a person instead of adding.
                             typeOfInserttoDB = 2;
                             AddorUpdatePerson(P, Statementvalue, typeOfInserttoDB);
                             P.GetPersons();
@@ -68,11 +71,11 @@ namespace ClassLibHejMorsan
         {
             // load persons from DB
             P.GetPersons();
+            // print person's details
+            PrintPersonList(P);
             foreach (var person in P.myPersons)
             {
                 bool waitForCorrectInput = true;
-                // print person's details
-                Console.WriteLine($"Namn: {person.Name}\tFödelsedag: {person.Birthday}\tMors-O-Meter: {person.CountDownTick}");
 
                 if (newCountdown.TimeToCallMom(person) == true)
                 {
@@ -109,81 +112,64 @@ namespace ClassLibHejMorsan
         // deletes a person from DB
         private void DeletePerson(Person P)
         {
-            int idToDelete = 0;
-            bool enteredInt = false;
+            int inputAsInt = 0;
+            bool validId = false;
 
             while (true)
             {
-                idToDelete = 0;
-                foreach (var person in P.myPersons)
-                {
-                    System.Console.WriteLine($"Id: {person.Id} {person.Name}");
-                }
+                PrintAllPersons(P);
 
-                while (!enteredInt)
+                while (!validId)
                 {
                     // ask for person's id to be deleted
                     System.Console.Write("Enter ID of person to delete: ");
                     // try to get a number
-                    try
+                    string input = Console.ReadLine();
+                    inputAsInt = 0;
+                    // Send the value to errorhandling to try/catch it
+                    if (err.isInt(input))
                     {
-                        idToDelete = Convert.ToInt32(Console.ReadLine());
-                        enteredInt = true;
+                        inputAsInt = Convert.ToInt32(input);
+                        validId = true;
                     }
-                    catch
+                    else
                     {
                         System.Console.WriteLine("Enter a number!");
                     }
                 }
 
-                // check if list of persons contains input ID
-                string UserConfirmation = "";
-                bool match = false;
-
-                foreach (var person in P.myPersons)
+                // if user exists in DB
+                if (err.FindUserInDB(inputAsInt, P))
                 {
-                    if (person.Id == idToDelete)
-                    {
-                        match = true;
-                        break;
-                    }
-
-                    else
-                    {
-                        match = false;
-                    }
-                }
-
-                if (match)
-                {
-                    System.Console.WriteLine($"Are you sure you want to delete ID: {idToDelete}");
+                    System.Console.WriteLine($"Are you sure you want to delete ID: {inputAsInt}");
                     System.Console.WriteLine($"[Y]es/[N]o");
 
-                    string input = Console.ReadLine();
-                    UserConfirmation = input.ToUpper();
+                    string input = Console.ReadLine().ToUpper();
 
                     // check user confirmation
                     while (true)
                     {
-                        switch (UserConfirmation)
+                        switch (input)
                         {
                             case "Y":
                                 {
                                     System.Console.WriteLine("Person has been deleted. Press any key...");
-
-                                    P.DeletePerson(idToDelete);
+                                    P.DeletePerson(inputAsInt);
                                     Console.ReadLine();
+                                    PrintPersonList(P);
                                     return;
                                 }
                             case "N":
                                 {
                                     System.Console.WriteLine("No one has been deleted. Press any key...");
+                                    PrintPersonList(P);
                                     Console.ReadLine();
                                     return;
                                 }
                             default:
                                 {
                                     System.Console.WriteLine("Wrong input.");
+                                    PrintPersonList(P);
                                     Console.ReadLine();
                                     break;
                                 }
@@ -195,9 +181,17 @@ namespace ClassLibHejMorsan
                 else
                 {
                     Console.WriteLine("Id does not exist! Press any key...");
-                    enteredInt = false;
+                    validId = false;
                     Console.ReadLine();
                 }
+            }
+        }
+
+        private static void PrintPersonList(Person P)
+        {
+            foreach (var person in P.myPersons)
+            {
+                Console.WriteLine($"Namn: {person.Name}\tFödelsedag: {person.Birthday}\tMors-O-Meter: {person.CountDownTick}");
             }
         }
 
@@ -208,23 +202,18 @@ namespace ClassLibHejMorsan
             string phone = "";
             string birthday = "";
             int counter = 0;
-            int IdToUpdate = 0;
+            int idToUpdate = 0;
             bool matchinDB = true;
             bool enteredInt = false;
             bool checkInput = true;
-            bool Majorloop = true;
+            bool majorLoop = true;
 
             if (Statementvalue == 2)
             {
 
-                while (Majorloop)
+                while (majorLoop)
                 {
-                    enteredInt = false;
-
-                    foreach (var person in P.myPersons)
-                    {
-                        System.Console.WriteLine($"Id: {person.Id} {person.Name}");
-                    }
+                    PrintAllPersons(P);
 
                     while (!enteredInt)
                     {
@@ -233,7 +222,7 @@ namespace ClassLibHejMorsan
                         // try to get a number
                         try
                         {
-                            IdToUpdate = Convert.ToInt32(Console.ReadLine());
+                            idToUpdate = Convert.ToInt32(Console.ReadLine());
                             enteredInt = true;
                         }
                         catch
@@ -242,28 +231,26 @@ namespace ClassLibHejMorsan
 
                         }
                     }
-                    foreach (var person in P.myPersons)
+                    if (err.FindUserInDB(idToUpdate, P))
                     {
-                        if (person.Id == IdToUpdate)
-                        {
-                            matchinDB = true;
-                            Majorloop = false;
-                            break;
-                        }
-
-                        else
-                        {
-                            matchinDB = false;
-                        }
+                        matchinDB = true;
+                        majorLoop = false;
                     }
-                    if (!matchinDB)
+
+                    else
                     {
-                        Console.WriteLine("Id does not exist! Press any key...");
-                        enteredInt = false;
-                        Console.ReadLine();
+                        matchinDB = false;
                     }
                 }
+                if (!matchinDB)
+                {
+                    Console.WriteLine("Id does not exist! Press any key...");
+                    enteredInt = false;
+                    Console.ReadLine();
+                }
             }
+            //-----------------------------------------------------------------------
+
 
             while (checkInput)
             {
@@ -361,10 +348,18 @@ namespace ClassLibHejMorsan
                 case 2:
                     {
                         // update person
-                        P.UpdatePerson(IdToUpdate, name, phone, birthday, counter);
+                        P.UpdatePerson(idToUpdate, name, phone, birthday, counter);
                         System.Console.WriteLine($"{name} has been updated. Press any key...");
                     }
                     break;
+            }
+        }
+
+        private void PrintAllPersons(Person P)
+        {
+            foreach (var person in P.myPersons)
+            {
+                System.Console.WriteLine($"Id: {person.Id} {person.Name}");
             }
         }
     }
