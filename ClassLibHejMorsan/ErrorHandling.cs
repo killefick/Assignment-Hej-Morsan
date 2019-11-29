@@ -1,9 +1,10 @@
 namespace ClassLibHejMorsan
 {
-    public class ErrorHandling
+    // errorhandling is supposed to be used globally, not onl om instances of a class
+    public static class ErrorHandling
     {
-
-        public bool isInt(string intToProcess)
+        // keyword "this" makes method available in intellisense
+        public static bool inputIsInt(this string intToProcess)
         {
             try
             {
@@ -14,21 +15,6 @@ namespace ClassLibHejMorsan
             {
                 return false;
             }
-
         }
-
-        public bool FindUserInDB(int id, Person P)
-        {
-
-            foreach (var person in P.myPersons)
-            {
-                if (person.Id == id)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
     }
 }

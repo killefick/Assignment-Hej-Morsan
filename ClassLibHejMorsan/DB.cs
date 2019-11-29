@@ -11,9 +11,9 @@ namespace ClassLibHejMorsan
         private readonly string connectionString;
 
         // constructor
-        public DB(string connectionString)
+        public DB()
         {
-            this.connectionString = connectionString;
+            this.connectionString = "Server=40.85.84.155;Database=Student13;User=Student13;Password=YH-student@2019;";
         }
 
         // public method to call from application
@@ -104,6 +104,19 @@ namespace ClassLibHejMorsan
             {
                 throw;
             }
+        }
+
+           public static bool FindUserInDB(int id, Person P)
+        {
+
+            foreach (var person in P.myPersons)
+            {
+                if (person.Id == id)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

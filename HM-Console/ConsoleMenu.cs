@@ -7,7 +7,7 @@ namespace ClassLibHejMorsan
     class ConsoleMenu
     {
         CountDown newCountdown = new CountDown();
-        ErrorHandling err = new ErrorHandling();
+        // ErrorHandling err = new ErrorHandling();
 
         //The Menu type is bool because we only want to switch to a new day when we explicitly says so.
         public bool StartMenu(Person P)
@@ -72,7 +72,7 @@ namespace ClassLibHejMorsan
             // load persons from DB
             P.GetPersons();
             // print person's details
-            PrintPersonList(P);
+            PrintAllPersonsWithoutId(P);
             foreach (var person in P.myPersons)
             {
                 bool waitForCorrectInput = true;
@@ -117,7 +117,7 @@ namespace ClassLibHejMorsan
 
             while (true)
             {
-                PrintAllPersons(P);
+                PrintAllPersonsWithId(P);
 
                 while (!validId)
                 {
@@ -127,7 +127,7 @@ namespace ClassLibHejMorsan
                     string input = Console.ReadLine();
                     inputAsInt = 0;
                     // Send the value to errorhandling to try/catch it
-                    if (err.isInt(input))
+                    if (input.inputIsInt())
                     {
                         inputAsInt = Convert.ToInt32(input);
                         validId = true;
@@ -139,7 +139,7 @@ namespace ClassLibHejMorsan
                 }
 
                 // if user exists in DB
-                if (err.FindUserInDB(inputAsInt, P))
+                if (DB.FindUserInDB(inputAsInt, P))
                 {
                     System.Console.WriteLine($"Are you sure you want to delete ID: {inputAsInt}");
                     System.Console.WriteLine($"[Y]es/[N]o");
@@ -156,20 +156,20 @@ namespace ClassLibHejMorsan
                                     System.Console.WriteLine("Person has been deleted. Press any key...");
                                     P.DeletePerson(inputAsInt);
                                     Console.ReadLine();
-                                    PrintPersonList(P);
+                                    PrintAllPersonsWithoutId(P);
                                     return;
                                 }
                             case "N":
                                 {
                                     System.Console.WriteLine("No one has been deleted. Press any key...");
-                                    PrintPersonList(P);
+                                    PrintAllPersonsWithoutId(P);
                                     Console.ReadLine();
                                     return;
                                 }
                             default:
                                 {
                                     System.Console.WriteLine("Wrong input.");
-                                    PrintPersonList(P);
+                                    PrintAllPersonsWithoutId(P);
                                     Console.ReadLine();
                                     break;
                                 }
@@ -187,14 +187,6 @@ namespace ClassLibHejMorsan
             }
         }
 
-        private static void PrintPersonList(Person P)
-        {
-            foreach (var person in P.myPersons)
-            {
-                Console.WriteLine($"Namn: {person.Name}\tFödelsedag: {person.Birthday}\tMors-O-Meter: {person.CountDownTick}");
-            }
-        }
-
         //Adds or Updates a person depending on the values set in the menu, to the database
         private void AddorUpdatePerson(Person P, int Statementvalue, int typeOfInserttoDB)
         {
@@ -205,7 +197,7 @@ namespace ClassLibHejMorsan
             int idToUpdate = 0;
             bool matchinDB = true;
             bool enteredInt = false;
-            bool checkInput = true;
+            bool inputIsNoInt = true;
             bool majorLoop = true;
 
             if (Statementvalue == 2)
@@ -213,7 +205,7 @@ namespace ClassLibHejMorsan
 
                 while (majorLoop)
                 {
-                    PrintAllPersons(P);
+                    PrintAllPersonsWithId(P);
 
                     while (!enteredInt)
                     {
@@ -231,7 +223,7 @@ namespace ClassLibHejMorsan
 
                         }
                     }
-                    if (err.FindUserInDB(idToUpdate, P))
+                    if (DB.FindUserInDB(idToUpdate, P))
                     {
                         matchinDB = true;
                         majorLoop = false;
@@ -249,16 +241,14 @@ namespace ClassLibHejMorsan
                     Console.ReadLine();
                 }
             }
-            //-----------------------------------------------------------------------
 
-
-            while (checkInput)
+            while (inputIsNoInt)
             {
                 System.Console.Write("Enter Name: ");
                 name = Console.ReadLine();
                 if (name.Length <= 50 && name.Length > 1)
                 {
-                    checkInput = false;
+                    inputIsNoInt = false;
                 }
                 else
                 {
@@ -269,8 +259,8 @@ namespace ClassLibHejMorsan
             // https://stackoverflow.com/questions/8764827/c-sharp-regex-validation-rule-using-regex-match
             // https://regex101.com/r/kF1uH5/2
             var regex = @"[0-9]{2,4}-[0-9]{2,3}\s[0-9]{2,3}\s[0-9]{2,3}$";
-            checkInput = true;
-            while (checkInput)
+            inputIsNoInt = true;
+            while (inputIsNoInt)
             {
                 System.Console.Write("Enter Telephone number: ");
                 phone = Console.ReadLine();
@@ -278,28 +268,30 @@ namespace ClassLibHejMorsan
 
                 if (match.Success)
                 {
-                    checkInput = false;
+                    inputIsNoInt = false;
                 }
                 else
                 {
                     Console.WriteLine("Valid format is: 99-999 999 99, 99-999 99 99, 999-99 99 99");
                 }
             }
-
+// xxx
             // https://www.regular-expressions.info/dates.html
             regex = @"^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$";
 
-            checkInput = true;
-            while (checkInput)
+            inputIsNoInt = true;
+            while (inputIsNoInt)
             {
                 System.Console.Write("Enter Birthday (YYYY-MM-DD): ");
                 birthday = Console.ReadLine();
 
+
+
                 var match = Regex.Match(birthday, regex, RegexOptions.IgnoreCase);
-                if (match.Success)
+                // if format matches a date AND date is in the past
+                if (match.Success && DateTime.Now.CompareTo(DateTime.Parse(birthday)) > 0)
                 {
-                    // does match
-                    checkInput = false;
+                    inputIsNoInt = false;
                 }
 
                 else
@@ -309,28 +301,22 @@ namespace ClassLibHejMorsan
             }
 
             // check for int
-            checkInput = true;
-            while (checkInput)
+            inputIsNoInt = true;
+            while (inputIsNoInt)
             {
                 System.Console.Write("Enter the time interval (max 365): ");
-                try
-                {
-                    counter = int.Parse(Console.ReadLine());
-                    checkInput = false;
-                }
-                catch
-                {
-                    checkInput = true;
-                }
 
-                if (counter <= 365 && checkInput == false)
+                string input = Console.ReadLine();
+
+                if (input.inputIsInt() && counter <= 365)
                 {
-                    checkInput = false;
+                    counter = Convert.ToInt32(input);
+                    inputIsNoInt = false;
                 }
                 else
                 {
                     Console.WriteLine("Enter a number of max 365 days!");
-                    checkInput = true;
+                    inputIsNoInt = true;
                 }
             }
 
@@ -340,7 +326,6 @@ namespace ClassLibHejMorsan
                     {
                         // add person to DB
                         P.AddPerson(name, phone.ToString(), birthday.ToString(), counter);
-
                         System.Console.WriteLine($"{name} has been added to the list. Press any key...");
                         Console.ReadLine();
                     }
@@ -355,11 +340,20 @@ namespace ClassLibHejMorsan
             }
         }
 
-        private void PrintAllPersons(Person P)
+        private void PrintAllPersonsWithId(Person P)
         {
             foreach (var person in P.myPersons)
             {
                 System.Console.WriteLine($"Id: {person.Id} {person.Name}");
+            }
+        }
+
+        // prints all the persons saved in DB
+        private static void PrintAllPersonsWithoutId(Person P)
+        {
+            foreach (var person in P.myPersons)
+            {
+                Console.WriteLine($"Namn: {person.Name}\tFödelsedag: {person.Birthday}\tMors-O-Meter: {person.CountDownTick}");
             }
         }
     }

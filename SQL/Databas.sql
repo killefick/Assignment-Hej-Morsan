@@ -40,6 +40,7 @@ VALUES
 	('Syrran', '+46 70 2366 154', '2008-11-11', 11, 11)
 GO
 
+USE Student13
 EXEC InitDB
 GO
 

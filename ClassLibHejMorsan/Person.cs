@@ -18,23 +18,18 @@ namespace ClassLibHejMorsan
 
         public override string ToString()
         {
-            return "Namn:"+Name+"\tFödelsedag:"+Birthday+"\tMors-O-Meter:"+CountDownTick;
+            return "Namn:" + Name + "\tFödelsedag:" + Birthday + "\tMors-O-Meter:" + CountDownTick;
         }
-        // (List is supposed to be static because the list is global.)
         public List<Person> myPersons = new List<Person>();
-
-
-        string connectionString = "Server=40.85.84.155;Database=Student13;User=Student13;Password=YH-student@2019;";
 
         // method to get person list
         public void GetPersons()
         {
             // creates connection object to connect to database
-            var db = new DB(connectionString);
-
+            var db = new DB();
             // start with a fresh list
             myPersons.Clear();
-            
+
             // adds persons from database to list
             foreach (var person in db.GetPersonsFromDB())
             {
@@ -47,39 +42,34 @@ namespace ClassLibHejMorsan
         // method to delete person from list
         public void DeletePerson(int id)
         {
-            var db = new DB(connectionString);
-
+            var db = new DB();
             // deletes person from database
             db.DeletePersonFromDB(id);
         }
 
-
         // method to update counter of a person
         public void UpdateCounter(int id, int counter)
         {
-            var db = new DB(connectionString);
-
+            var db = new DB();
             // updates person on db
             db.UpdateCounterOnDB(id, counter);
         }
 
-
         // method to update a person
         public void UpdatePerson(int id, string name, string phone, string birthday, int counter)
         {
-            var db = new DB(connectionString);
-
+            var db = new DB();
             // updates person on db
-            db.UpdatePersonOnDB(id, name, phone,birthday, counter);
+            db.UpdatePersonOnDB(id, name, phone, birthday, counter);
         }
 
         // method to add a person
         public void AddPerson(string name, string phone, string birthday, int counter)
         {
-            var db = new DB(connectionString);
-
+            var db = new DB();
             // updates person on db
             db.AddPersonOnDB(name, phone, birthday, counter);
         }
+
     }
 }
