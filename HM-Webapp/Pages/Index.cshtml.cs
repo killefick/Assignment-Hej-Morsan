@@ -7,7 +7,7 @@ namespace Hej_Morsan_Projekt.Pages
     public class IndexModel : PageModel
     {
         // instantiate class
-        Person person = new Person();
+        public Person person = new Person();
 
         // create list to store persons from database 
         public List<Person> myPersons = new List<Person>();

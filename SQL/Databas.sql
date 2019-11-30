@@ -25,19 +25,19 @@ AS
 INSERT INTO Persons
 	(Name, Phone, Birthday, Counter, InitialCounter)
 VALUES
-	('Mamma', '+46 70 5689 123', '1954-03-23', 3, 3)
+	('Mamma', '070-568 91 23', '1954-03-23', 3, 3)
 INSERT INTO Persons
 	(Name, Phone, Birthday, Counter, InitialCounter)
 VALUES
-	('Pappa', '+46 70 4455 543', '1944-06-13', 7, 7)
+	('Pappa', '072-455 75 43', '1944-06-13', 7, 7)
 INSERT INTO Persons
 	(Name, Phone, Birthday, Counter, InitialCounter)
 VALUES
-	('Mormor', '+46 70 1356 634', '1914-12-12', 15, 15)
+	('Mormor', '078-135 67 34', '1914-12-12', 15, 15)
 INSERT INTO Persons
 	(Name, Phone, Birthday, Counter, InitialCounter)
 VALUES
-	('Syrran', '+46 70 2366 154', '2008-11-11', 11, 11)
+	('Syrran', '079 236 61 54', '2008-11-11', 11, 11)
 GO
 
 USE Student13

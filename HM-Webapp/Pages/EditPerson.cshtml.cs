@@ -6,9 +6,6 @@ namespace Hej_Morsan_Projekt.Pages
 {
     public class EditPersonModel : PageModel
     {
-        // instantiate class
-        Person person = new Person();
-
         [BindProperty(SupportsGet = true)]
         public string Id { get; private set; }
 
@@ -32,6 +29,5 @@ namespace Hej_Morsan_Projekt.Pages
             Birthday = Request.Query["birthday"];
             Counter = Request.Query["counter"];
         }
-
     }
 }
