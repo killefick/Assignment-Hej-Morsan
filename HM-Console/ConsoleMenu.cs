@@ -275,7 +275,6 @@ namespace ClassLibHejMorsan
                     Console.WriteLine("Valid format is: 99-999 999 99, 99-999 99 99, 999-99 99 99");
                 }
             }
-// xxx
             // https://www.regular-expressions.info/dates.html
             regex = @"^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$";
 
@@ -284,8 +283,6 @@ namespace ClassLibHejMorsan
             {
                 System.Console.Write("Enter Birthday (YYYY-MM-DD): ");
                 birthday = Console.ReadLine();
-
-
 
                 var match = Regex.Match(birthday, regex, RegexOptions.IgnoreCase);
                 // if format matches a date AND date is in the past
