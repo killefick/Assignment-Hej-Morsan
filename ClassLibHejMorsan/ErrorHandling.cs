@@ -1,6 +1,6 @@
 namespace ClassLibHejMorsan
 {
-    // errorhandling is supposed to be used globally, not onl om instances of a class
+    // errorhandling is supposed to be used globally, not only on instances of a class
     public static class ErrorHandling
     {
         // keyword "this" makes method available in intellisense
