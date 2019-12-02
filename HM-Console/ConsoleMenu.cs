@@ -1,13 +1,11 @@
 using System;
 using System.Text.RegularExpressions;
-using ClassLibHejMorsan;
 
 namespace ClassLibHejMorsan
 {
     class ConsoleMenu
     {
         CountDown newCountdown = new CountDown();
-        // ErrorHandling err = new ErrorHandling();
 
         //The Menu type is bool because we only want to switch to a new day when we explicitly says so.
         public bool StartMenu(Person P)
@@ -35,7 +33,14 @@ namespace ClassLibHejMorsan
                             typeOfInserttoDB = 1;
                             AddorUpdatePerson(P, Statementvalue, typeOfInserttoDB);
                             // refreshes person list
-                            P.GetPersons();
+                            try
+                            {
+                                P.GetPersons();
+                            }
+                            catch (Exception)
+                            {
+                                ConnectionError();
+                            }
                             break;
                         }
                     case "2":
@@ -64,13 +69,21 @@ namespace ClassLibHejMorsan
             }
         }
 
+
         //The daily loop fetches the saved database, runs through it, person by person.
         //Gives the user the option to call if the counter has reached zero.
         //Otherwise triggers an overduecounter to display how many days overdue the user is.
         public void DailyLoop(Person P)
         {
             // load persons from DB
-            P.GetPersons();
+            try
+            {
+                P.GetPersons();
+            }
+            catch (System.Exception)
+            {
+                ConnectionError();
+            }
             // print person's details
             PrintAllPersonsWithoutId(P);
             foreach (var person in P.myPersons)
@@ -105,7 +118,14 @@ namespace ClassLibHejMorsan
                         }
                     }
                 }
-                person.UpdateCounter(person.Id, person.CountDownTick);
+                try
+                {
+                    person.UpdateCounter(person.Id, person.CountDownTick);
+                }
+                catch (System.Exception)
+                {
+                    ConnectionError();
+                }
             }
         }
 
@@ -352,6 +372,12 @@ namespace ClassLibHejMorsan
             {
                 Console.WriteLine($"Namn: {person.Name}\tFödelsedag: {person.Birthday}\tMors-O-Meter: {person.CountDownTick}");
             }
+        }
+
+        // quits application if no connection to database is possible
+        public static void ConnectionError()
+        {
+            throw new Exception("Couldn't connect to database!");
         }
     }
 }

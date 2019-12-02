@@ -31,11 +31,18 @@ namespace ClassLibHejMorsan
             myPersons.Clear();
 
             // adds persons from database to list
-            foreach (var person in db.GetPersonsFromDB())
+            try
             {
-                myPersons.Add(person);
-                // sets counter variable that will decrease for each day 
-                person.CountDownTick = person.Counter;
+                foreach (var person in db.GetPersonsFromDB())
+                {
+                    myPersons.Add(person);
+                    // sets counter variable that will decrease for each day 
+                    person.CountDownTick = person.Counter;
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
             }
         }
 
@@ -44,7 +51,15 @@ namespace ClassLibHejMorsan
         {
             var db = new DB();
             // deletes person from database
-            db.DeletePersonFromDB(id);
+
+            try
+            {
+                db.DeletePersonFromDB(id);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
         }
 
         // method to update counter of a person
@@ -52,7 +67,14 @@ namespace ClassLibHejMorsan
         {
             var db = new DB();
             // updates person on db
-            db.UpdateCounterOnDB(id, counter);
+            try
+            {
+                db.UpdateCounterOnDB(id, counter);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
         }
 
         // method to update a person
@@ -60,7 +82,14 @@ namespace ClassLibHejMorsan
         {
             var db = new DB();
             // updates person on db
-            db.UpdatePersonOnDB(id, name, phone, birthday, counter);
+            try
+            {
+                db.UpdatePersonOnDB(id, name, phone, birthday, counter);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
         }
 
         // method to add a person
@@ -68,8 +97,14 @@ namespace ClassLibHejMorsan
         {
             var db = new DB();
             // updates person on db
-            db.AddPersonOnDB(name, phone, birthday, counter);
+            try
+            {
+                db.AddPersonOnDB(name, phone, birthday, counter);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
         }
-
     }
 }
