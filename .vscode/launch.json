@@ -9,32 +9,17 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/bin/Debug/<target-framework>/<project-name.dll>",
+            "program": "${workspaceFolder}/HM-Console/bin/Debug/netcoreapp2.2/HM-Console.dll",
             "args": [],
-            "cwd": "${workspaceFolder}",
-            "stopAtEntry": false,
-            "console": "integratedTerminal"
+            "cwd": "${workspaceFolder}/HM-Console",
+            "console": "integratedTerminal",
+            "stopAtEntry": false
         },
-        
         {
-            "name": ".NET Core Launch (web)",
+            "name": ".NET Core Attach",
             "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build",
-            "program": "${workspaceFolder}/HM-Webapp/bin/Debug/netcoreapp2.2/Hej-Morsan-Projekt.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/HM-Webapp",
-            "stopAtEntry": false,
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "^\\s*Now listening on:\\s+(https?://\\S+)"
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            },
-            "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
-            }
+            "request": "attach",
+            "processId": "${command:pickProcess}"
         }
     ]
 }

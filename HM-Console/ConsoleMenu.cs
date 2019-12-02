@@ -22,7 +22,8 @@ namespace ClassLibHejMorsan
                 System.Console.WriteLine("[1] Add a new Person");
                 System.Console.WriteLine("[2] Update Person");
                 System.Console.WriteLine("[3] Delete Person");
-                System.Console.WriteLine("[4] Quit");
+                System.Console.WriteLine("[4] Print the List");
+                System.Console.WriteLine("[5] Quit");
                 System.Console.WriteLine("Make a choice or press any key to skip to next day...");
 
                 userInput = Console.ReadLine();
@@ -33,6 +34,8 @@ namespace ClassLibHejMorsan
                         {
                             //This variable decides which type of insert to DB we are doing, 1= addperson
                             typeOfInserttoDB = 1;
+                            // Statementvalue=1 means that we are doing an ordinary insert.
+                            Statementvalue=1;
                             AddorUpdatePerson(P, Statementvalue, typeOfInserttoDB);
                             // refreshes person list
                             P.GetPersons();
@@ -54,8 +57,14 @@ namespace ClassLibHejMorsan
                             P.GetPersons();
                             break;
                         }
-                    // quit program
                     case "4":
+                        {
+                            //P.GetPersons();
+                            PrintAllPersonsWithoutId(P);
+                            break;
+                        }
+                    // quit program
+                    case "5":
                         return false;
 
                     default:
@@ -195,60 +204,70 @@ namespace ClassLibHejMorsan
             string birthday = "";
             int counter = 0;
             int idToUpdate = 0;
+            // Checks if there are any matches in DB
             bool matchinDB = true;
-            bool enteredInt = false;
             bool inputIsNoInt = true;
-            bool majorLoop = true;
 
+            //statementvalue=2, updating a person
             if (Statementvalue == 2)
             {
-
-                while (majorLoop)
+                while (true)
                 {
                     PrintAllPersonsWithId(P);
-
-                    while (!enteredInt)
+                    // ask for person's id to be updated
+                    System.Console.WriteLine("Enter ID of person to update: ");
+                    System.Console.WriteLine("Press Q to return to the menu");
+                    string input = Console.ReadLine();
+                    if (CheckIfInputIsQuit(input.ToUpper()) == false)
                     {
-                        // ask for person's id to be deleted
-                        System.Console.Write("Enter ID of person to update: ");
-                        // try to get a number
-                        try
+                        if (input.inputIsInt())
                         {
-                            idToUpdate = Convert.ToInt32(Console.ReadLine());
-                            enteredInt = true;
+                            if (DB.FindUserInDB(Convert.ToInt32(input), P))
+                            {
+                                idToUpdate = Convert.ToInt32(input);
+                                matchinDB = true;
+                                Statementvalue=1;
+                                break;
+                            }
+
+                            else
+                            {
+                                matchinDB = false;
+                            }
                         }
-                        catch
+                        else
                         {
                             System.Console.WriteLine("Enter a number!");
-
                         }
-                    }
-                    if (DB.FindUserInDB(idToUpdate, P))
-                    {
-                        matchinDB = true;
-                        majorLoop = false;
-                    }
+                        if (!matchinDB)
+                        {
+                            Console.WriteLine("Id does not exist! Press any key...");
+                            Console.ReadLine();
+                        }
 
+                    }
                     else
                     {
-                        matchinDB = false;
+                        return;
                     }
                 }
-                if (!matchinDB)
-                {
-                    Console.WriteLine("Id does not exist! Press any key...");
-                    enteredInt = false;
-                    Console.ReadLine();
-                }
             }
-
-            while (inputIsNoInt)
+            //statementvalue=1, ordinary insert, displays the choice to exit.
+            else if(Statementvalue==1)
+            {
+               System.Console.WriteLine("Press Q and Enter to return to the menu");
+            }
+            while (true)
             {
                 System.Console.Write("Enter Name: ");
                 name = Console.ReadLine();
-                if (name.Length <= 50 && name.Length > 1)
+                if( CheckIfInputIsQuit(name.ToUpper())==true)
                 {
-                    inputIsNoInt = false;
+                    return;
+                }
+                else if (name.Length <= 50 && name.Length > 1)
+                {
+                    break;
                 }
                 else
                 {
@@ -262,7 +281,7 @@ namespace ClassLibHejMorsan
             inputIsNoInt = true;
             while (inputIsNoInt)
             {
-                System.Console.Write("Enter Telephone number: ");
+                System.Console.Write("Enter Telephone number (XXX-XXX XX XX): ");
                 phone = Console.ReadLine();
                 var match = Regex.Match(phone, regex, RegexOptions.IgnoreCase);
 
@@ -316,7 +335,8 @@ namespace ClassLibHejMorsan
                     inputIsNoInt = true;
                 }
             }
-
+            
+    
             switch (typeOfInserttoDB)
             {
                 case 1:
@@ -335,6 +355,7 @@ namespace ClassLibHejMorsan
                     }
                     break;
             }
+
         }
 
         private void PrintAllPersonsWithId(Person P)
@@ -351,6 +372,17 @@ namespace ClassLibHejMorsan
             foreach (var person in P.myPersons)
             {
                 Console.WriteLine($"Namn: {person.Name}\tFödelsedag: {person.Birthday}\tMors-O-Meter: {person.CountDownTick}");
+            }
+        }
+        private bool CheckIfInputIsQuit(string input)
+        {
+            if (input == "Q")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }
