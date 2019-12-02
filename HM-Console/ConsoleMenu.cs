@@ -155,11 +155,12 @@ namespace ClassLibHejMorsan
                     System.Console.Write("Enter ID of person to delete: ");
                     // try to get a number
                     string input = Console.ReadLine();
-                    if (CheckIfInputIsQuit(input.ToUpper()) == true)
-                    {
-                        //return;
-                        StartMenu(P);
-                    }
+                    CheckIfInputIsQuit(P,input.ToUpper());
+                    // if (CheckIfInputIsQuit(input.ToUpper()) == true)
+                    // {
+                    //     //return;
+                    //     StartMenu(P);
+                    // }
                     inputAsInt = 0;
                     // Send the value to errorhandling to try/catch it
                     if (input.inputIsInt())
@@ -246,11 +247,12 @@ namespace ClassLibHejMorsan
                     System.Console.WriteLine("Press Q and Enter to return to the menu");
                     System.Console.WriteLine("Enter ID of person to update: ");
                     string input = Console.ReadLine();
-                    if (CheckIfInputIsQuit(input.ToUpper()) == true)
-                    {
-                        //return;
-                        StartMenu(P);
-                    }
+                    CheckIfInputIsQuit(P,input.ToUpper());
+                    // if (CheckIfInputIsQuit(input.ToUpper()) == true)
+                    // {
+                    //     //return;
+                    //     StartMenu(P);
+                    // }
                         if (input.inputIsInt())
                         {
                             if (DB.FindUserInDB(Convert.ToInt32(input), P))
@@ -286,13 +288,15 @@ namespace ClassLibHejMorsan
             {
                 System.Console.Write("Enter Name: ");
                 name = Console.ReadLine();
-                if (CheckIfInputIsQuit(name.ToUpper()) == true)
-                {
-                    //return;
-                    StartMenu(P);
-                }
+                CheckIfInputIsQuit(P,name.ToUpper());
+                // if (CheckIfInputIsQuit(name.ToUpper()) == true)
+                // {
+                //     //return;
+                //     StartMenu(P);
+                // }
+                
                 // TODO: check is this still works
-                else if (name.Length <= 50 && name.Length > 1)
+                if (name.Length <= 50 && name.Length > 1)
                 {
                     break;
                 }
@@ -401,16 +405,13 @@ namespace ClassLibHejMorsan
                 Console.WriteLine($"Namn: {person.Name}\tFödelsedag: {person.Birthday}\tMors-O-Meter: {person.CountDownTick}");
             }
         }
-        private bool CheckIfInputIsQuit(string input)
+        private void CheckIfInputIsQuit(Person P, string input)
         {
             if (input == "Q")
             {
-                return true;
+                StartMenu(P);
             }
-            else
-            {
-                return false;
-            }
+
         }
         // quits application if no connection to database is possible
         public static void ConnectionError()
