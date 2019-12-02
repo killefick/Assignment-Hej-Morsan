@@ -198,12 +198,11 @@ namespace ClassLibHejMorsan
             bool matchinDB = true;
             bool enteredInt = false;
             bool inputIsNoInt = true;
-            bool majorLoop = true;
 
             if (Statementvalue == 2)
             {
 
-                while (majorLoop)
+                while (true)
                 {
                     PrintAllPersonsWithId(P);
 
@@ -220,13 +219,12 @@ namespace ClassLibHejMorsan
                         catch
                         {
                             System.Console.WriteLine("Enter a number!");
-
                         }
                     }
                     if (DB.FindUserInDB(idToUpdate, P))
                     {
                         matchinDB = true;
-                        majorLoop = false;
+                        break;
                     }
 
                     else
