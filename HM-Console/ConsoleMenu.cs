@@ -81,7 +81,6 @@ namespace ClassLibHejMorsan
 
         //The daily loop fetches the saved database, runs through it, person by person.
         //Gives the user the option to call if the counter has reached zero.
-        //Otherwise triggers an overduecounter to display how many days overdue the user is.
         public void DailyLoop(Person P)
         {
             // load persons from DB
@@ -155,13 +154,10 @@ namespace ClassLibHejMorsan
                     System.Console.Write("Enter ID of person to delete: ");
                     // try to get a number
                     string input = Console.ReadLine();
+                    //Checks if input is Q
                     CheckIfInputIsQuit(P,input.ToUpper());
-                    // if (CheckIfInputIsQuit(input.ToUpper()) == true)
-                    // {
-                    //     //return;
-                    //     StartMenu(P);
-                    // }
-                    inputAsInt = 0;
+
+                    inputAsInt = 0; //<- Unnecessary?
                     // Send the value to errorhandling to try/catch it
                     if (input.inputIsInt())
                     {
@@ -235,6 +231,7 @@ namespace ClassLibHejMorsan
             int idToUpdate = 0;
             // Checks if there are any matches in DB
             bool matchinDB = true;
+            //NOTE: Rename this bool to reflect what it does... what does it do? ;S
             bool inputIsNoInt = true;
 
             //statementvalue=2, updating a person
@@ -247,14 +244,12 @@ namespace ClassLibHejMorsan
                     System.Console.WriteLine("Press Q and Enter to return to the menu");
                     System.Console.WriteLine("Enter ID of person to update: ");
                     string input = Console.ReadLine();
+                    //Checks if input was Q.
                     CheckIfInputIsQuit(P,input.ToUpper());
-                    // if (CheckIfInputIsQuit(input.ToUpper()) == true)
-                    // {
-                    //     //return;
-                    //     StartMenu(P);
-                    // }
+                        //Checks if input is convertable to int
                         if (input.inputIsInt())
                         {
+                            //Converts input and searches for an ID that matches
                             if (DB.FindUserInDB(Convert.ToInt32(input), P))
                             {
                                 idToUpdate = Convert.ToInt32(input);
@@ -272,6 +267,7 @@ namespace ClassLibHejMorsan
                         {
                             System.Console.WriteLine("Enter a number!");
                         }
+                        //If no matches were found in the DB
                         if (!matchinDB)
                         {
                             Console.WriteLine("Id does not exist! Press any key...");
@@ -288,13 +284,9 @@ namespace ClassLibHejMorsan
             {
                 System.Console.Write("Enter Name: ");
                 name = Console.ReadLine();
+                //Checks if input is Q
                 CheckIfInputIsQuit(P,name.ToUpper());
-                // if (CheckIfInputIsQuit(name.ToUpper()) == true)
-                // {
-                //     //return;
-                //     StartMenu(P);
-                // }
-                
+
                 // TODO: check is this still works
                 if (name.Length <= 50 && name.Length > 1)
                 {
@@ -312,7 +304,7 @@ namespace ClassLibHejMorsan
             inputIsNoInt = true;
             while (inputIsNoInt)
             {
-                System.Console.Write("Enter Telephone number (XXX-XXX XX XX): ");
+                System.Console.Write("Enter Telephone number (999-999 99 99): ");
                 phone = Console.ReadLine();
                 var match = Regex.Match(phone, regex, RegexOptions.IgnoreCase);
 
@@ -367,7 +359,7 @@ namespace ClassLibHejMorsan
                 }
             }
 
-
+            //reads the typeofinsert-variable and executes the code depending on the value
             switch (typeOfInserttoDB)
             {
                 case 1:
@@ -388,7 +380,7 @@ namespace ClassLibHejMorsan
             }
 
         }
-
+        //Prints all persons with the assigned id from the DB
         private void PrintAllPersonsWithId(Person P)
         {
             foreach (var person in P.myPersons)
@@ -397,7 +389,7 @@ namespace ClassLibHejMorsan
             }
         }
 
-        // prints all the persons saved in DB
+        // prints all the persons saved in DB w/o the ID
         private static void PrintAllPersonsWithoutId(Person P)
         {
             foreach (var person in P.myPersons)
@@ -405,6 +397,8 @@ namespace ClassLibHejMorsan
                 Console.WriteLine($"Namn: {person.Name}\tFödelsedag: {person.Birthday}\tMors-O-Meter: {person.CountDownTick}");
             }
         }
+
+        //Checks if input was Q=quit to menu, if it was, runs the menu.
         private void CheckIfInputIsQuit(Person P, string input)
         {
             if (input == "Q")
