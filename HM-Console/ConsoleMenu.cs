@@ -33,7 +33,7 @@ namespace ClassLibHejMorsan
                             //This variable decides which type of insert to DB we are doing, 1= addperson
                             typeOfInserttoDB = 1;
                             // Statementvalue=1 means that we are doing an ordinary insert.
-                            Statementvalue=1;
+                            Statementvalue = 1;
                             AddorUpdatePerson(P, Statementvalue, typeOfInserttoDB);
                             // refreshes person list
                             try
@@ -150,10 +150,15 @@ namespace ClassLibHejMorsan
 
                 while (!validId)
                 {
+                    System.Console.WriteLine("Press Q and Enter to return to the menu");
                     // ask for person's id to be deleted
                     System.Console.Write("Enter ID of person to delete: ");
                     // try to get a number
                     string input = Console.ReadLine();
+                    if (CheckIfInputIsQuit(input.ToUpper()) == true)
+                    {
+                        return;
+                    }
                     inputAsInt = 0;
                     // Send the value to errorhandling to try/catch it
                     if (input.inputIsInt())
@@ -185,6 +190,8 @@ namespace ClassLibHejMorsan
                                     System.Console.WriteLine("Person has been deleted. Press any key...");
                                     P.DeletePerson(inputAsInt);
                                     Console.ReadLine();
+                                    // NOTE: Personen som har blivit deletad syn fortfarande i detta varv.
+                                    //försvinner dock ur databasen.
                                     PrintAllPersonsWithoutId(P);
                                     return;
                                 }
@@ -235,8 +242,8 @@ namespace ClassLibHejMorsan
                 {
                     PrintAllPersonsWithId(P);
                     // ask for person's id to be updated
+                    System.Console.WriteLine("Press Q and Enter to return to the menu");
                     System.Console.WriteLine("Enter ID of person to update: ");
-                    System.Console.WriteLine("Press Q to return to the menu");
                     string input = Console.ReadLine();
                     if (CheckIfInputIsQuit(input.ToUpper()) == false)
                     {
@@ -246,7 +253,7 @@ namespace ClassLibHejMorsan
                             {
                                 idToUpdate = Convert.ToInt32(input);
                                 matchinDB = true;
-                                Statementvalue=1;
+                                Statementvalue = 1;
                                 break;
                             }
 
@@ -273,18 +280,19 @@ namespace ClassLibHejMorsan
                 }
             }
             //statementvalue=1, ordinary insert, displays the choice to exit.
-            else if(Statementvalue==1)
+            else if (Statementvalue == 1)
             {
-               System.Console.WriteLine("Press Q and Enter to return to the menu");
+                System.Console.WriteLine("Press Q and Enter to return to the menu");
             }
             while (true)
             {
                 System.Console.Write("Enter Name: ");
                 name = Console.ReadLine();
-                if( CheckIfInputIsQuit(name.ToUpper())==true)
+                if (CheckIfInputIsQuit(name.ToUpper()) == true)
                 {
                     return;
                 }
+                // TODO: check is this still works
                 else if (name.Length <= 50 && name.Length > 1)
                 {
                     break;
@@ -355,8 +363,8 @@ namespace ClassLibHejMorsan
                     inputIsNoInt = true;
                 }
             }
-            
-    
+
+
             switch (typeOfInserttoDB)
             {
                 case 1:
