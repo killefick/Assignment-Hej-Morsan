@@ -157,7 +157,8 @@ namespace ClassLibHejMorsan
                     string input = Console.ReadLine();
                     if (CheckIfInputIsQuit(input.ToUpper()) == true)
                     {
-                        return;
+                        //return;
+                        StartMenu(P);
                     }
                     inputAsInt = 0;
                     // Send the value to errorhandling to try/catch it
@@ -245,8 +246,11 @@ namespace ClassLibHejMorsan
                     System.Console.WriteLine("Press Q and Enter to return to the menu");
                     System.Console.WriteLine("Enter ID of person to update: ");
                     string input = Console.ReadLine();
-                    if (CheckIfInputIsQuit(input.ToUpper()) == false)
+                    if (CheckIfInputIsQuit(input.ToUpper()) == true)
                     {
+                        //return;
+                        StartMenu(P);
+                    }
                         if (input.inputIsInt())
                         {
                             if (DB.FindUserInDB(Convert.ToInt32(input), P))
@@ -271,12 +275,6 @@ namespace ClassLibHejMorsan
                             Console.WriteLine("Id does not exist! Press any key...");
                             Console.ReadLine();
                         }
-
-                    }
-                    else
-                    {
-                        return;
-                    }
                 }
             }
             //statementvalue=1, ordinary insert, displays the choice to exit.
@@ -290,7 +288,8 @@ namespace ClassLibHejMorsan
                 name = Console.ReadLine();
                 if (CheckIfInputIsQuit(name.ToUpper()) == true)
                 {
-                    return;
+                    //return;
+                    StartMenu(P);
                 }
                 // TODO: check is this still works
                 else if (name.Length <= 50 && name.Length > 1)
