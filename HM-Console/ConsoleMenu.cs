@@ -60,11 +60,11 @@ namespace ClassLibHejMorsan
                         {
                             DeletePerson(P);
                             P.GetPersons();
+                            PrintAllPersonsWithoutId(P);
                             break;
                         }
                     case "4":
                         {
-                            //P.GetPersons();
                             PrintAllPersonsWithoutId(P);
                             break;
                         }
@@ -83,6 +83,7 @@ namespace ClassLibHejMorsan
         //Gives the user the option to call if the counter has reached zero.
         public void DailyLoop(Person P)
         {
+            Console.Clear();
             // load persons from DB
             try
             {
@@ -139,34 +140,39 @@ namespace ClassLibHejMorsan
 
         // deletes a person from DB
         private void DeletePerson(Person P)
+
         {
             int inputAsInt = 0;
-            bool validId = false;
+            bool validInt = false;
 
             while (true)
             {
+                Console.Clear();
                 PrintAllPersonsWithId(P);
 
-                while (!validId)
+                while (!validInt)
                 {
-                    System.Console.WriteLine("Press Q and Enter to return to the menu");
+                    PrintAllPersonsWithId(P);
                     // ask for person's id to be deleted
-                    System.Console.Write("Enter ID of person to delete: ");
+                    System.Console.Write("Enter ID of person to delete or Q to quit: ");
                     // try to get a number
                     string input = Console.ReadLine();
                     //Checks if input is Q
-                    CheckIfInputIsQuit(P,input.ToUpper());
 
-                    inputAsInt = 0; //<- Unnecessary?
+                    if (CheckIfInputIsQuit(input.ToUpper()))
+                    {
+                        return;
+                    }
                     // Send the value to errorhandling to try/catch it
-                    if (input.inputIsInt())
+                    else if (input.inputIsInt())
                     {
                         inputAsInt = Convert.ToInt32(input);
-                        validId = true;
+                        validInt = true;
                     }
                     else
                     {
                         System.Console.WriteLine("Enter a number!");
+                        Console.ReadLine();
                     }
                 }
 
@@ -188,8 +194,7 @@ namespace ClassLibHejMorsan
                                     System.Console.WriteLine("Person has been deleted. Press any key...");
                                     P.DeletePerson(inputAsInt);
                                     Console.ReadLine();
-                                    // NOTE: Personen som har blivit deletad syn fortfarande i detta varv.
-                                    //försvinner dock ur databasen.
+                                    P.GetPersons();
                                     PrintAllPersonsWithoutId(P);
                                     return;
                                 }
@@ -197,13 +202,11 @@ namespace ClassLibHejMorsan
                                 {
                                     System.Console.WriteLine("No one has been deleted. Press any key...");
                                     PrintAllPersonsWithoutId(P);
-                                    Console.ReadLine();
                                     return;
                                 }
                             default:
                                 {
                                     System.Console.WriteLine("Wrong input.");
-                                    PrintAllPersonsWithoutId(P);
                                     Console.ReadLine();
                                     break;
                                 }
@@ -215,7 +218,7 @@ namespace ClassLibHejMorsan
                 else
                 {
                     Console.WriteLine("Id does not exist! Press any key...");
-                    validId = false;
+                    validInt = false;
                     Console.ReadLine();
                 }
             }
@@ -245,49 +248,54 @@ namespace ClassLibHejMorsan
                     System.Console.WriteLine("Enter ID of person to update: ");
                     string input = Console.ReadLine();
                     //Checks if input was Q.
-                    CheckIfInputIsQuit(P,input.ToUpper());
-                        //Checks if input is convertable to int
-                        if (input.inputIsInt())
+                    CheckIfInputIsQuit(input.ToUpper());
+                    //Checks if input is convertable to int
+                    if (input.inputIsInt())
+                    {
+                        //Converts input and searches for an ID that matches
+                        if (DB.FindUserInDB(Convert.ToInt32(input), P))
                         {
-                            //Converts input and searches for an ID that matches
-                            if (DB.FindUserInDB(Convert.ToInt32(input), P))
-                            {
-                                idToUpdate = Convert.ToInt32(input);
-                                matchinDB = true;
-                                Statementvalue = 1;
-                                break;
-                            }
-
-                            else
-                            {
-                                matchinDB = false;
-                            }
+                            idToUpdate = Convert.ToInt32(input);
+                            matchinDB = true;
+                            Statementvalue = 1;
+                            break;
                         }
+
                         else
                         {
-                            System.Console.WriteLine("Enter a number!");
+                            matchinDB = false;
                         }
-                        //If no matches were found in the DB
-                        if (!matchinDB)
-                        {
-                            Console.WriteLine("Id does not exist! Press any key...");
-                            Console.ReadLine();
-                        }
+                    }
+                    else
+                    {
+                        System.Console.WriteLine("Enter a number!");
+                    }
+                    //If no matches were found in the DB
+                    if (!matchinDB)
+                    {
+                        Console.WriteLine("Id does not exist! Press any key...");
+                        Console.ReadLine();
+                    }
                 }
             }
             //statementvalue=1, ordinary insert, displays the choice to exit.
             else if (Statementvalue == 1)
             {
                 System.Console.WriteLine("Press Q and Enter to return to the menu");
+                if (CheckIfInputIsQuit(name.ToUpper()))
+                {
+                    return;
+                }
             }
+
+
             while (true)
             {
                 System.Console.Write("Enter Name: ");
                 name = Console.ReadLine();
                 //Checks if input is Q
-                CheckIfInputIsQuit(P,name.ToUpper());
+                CheckIfInputIsQuit(name.ToUpper());
 
-                // TODO: check is this still works
                 if (name.Length <= 50 && name.Length > 1)
                 {
                     break;
@@ -375,6 +383,7 @@ namespace ClassLibHejMorsan
                         // update person
                         P.UpdatePerson(idToUpdate, name, phone, birthday, counter);
                         System.Console.WriteLine($"{name} has been updated. Press any key...");
+                        Console.ReadLine();
                     }
                     break;
             }
@@ -383,6 +392,7 @@ namespace ClassLibHejMorsan
         //Prints all persons with the assigned id from the DB
         private void PrintAllPersonsWithId(Person P)
         {
+            Console.Clear();
             foreach (var person in P.myPersons)
             {
                 System.Console.WriteLine($"Id: {person.Id} {person.Name}");
@@ -392,6 +402,7 @@ namespace ClassLibHejMorsan
         // prints all the persons saved in DB w/o the ID
         private static void PrintAllPersonsWithoutId(Person P)
         {
+            Console.Clear();
             foreach (var person in P.myPersons)
             {
                 Console.WriteLine($"Namn: {person.Name}\tFödelsedag: {person.Birthday}\tMors-O-Meter: {person.CountDownTick}");
@@ -399,11 +410,15 @@ namespace ClassLibHejMorsan
         }
 
         //Checks if input was Q=quit to menu, if it was, runs the menu.
-        private void CheckIfInputIsQuit(Person P, string input)
+        private bool CheckIfInputIsQuit(string input)
         {
             if (input == "Q")
             {
-                StartMenu(P);
+                return true;
+            }
+            else
+            {
+                return false;
             }
 
         }
