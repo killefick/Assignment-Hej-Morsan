@@ -244,13 +244,15 @@ namespace ClassLibHejMorsan
                 {
                     PrintAllPersonsWithId(P);
                     // ask for person's id to be updated
-                    System.Console.WriteLine("Press Q and Enter to return to the menu");
-                    System.Console.WriteLine("Enter ID of person to update: ");
+                    System.Console.WriteLine("Enter ID of person to update or Q to return to the menu: ");
                     string input = Console.ReadLine();
                     //Checks if input was Q.
-                    CheckIfInputIsQuit(input.ToUpper());
-                    //Checks if input is convertable to int
-                    if (input.inputIsInt())
+                    if (CheckIfInputIsQuit(input.ToUpper()))
+                    {
+                        return;
+                    }                   
+                     //Checks if input is convertable to int
+                    else if (input.inputIsInt())
                     {
                         //Converts input and searches for an ID that matches
                         if (DB.FindUserInDB(Convert.ToInt32(input), P))
@@ -282,10 +284,6 @@ namespace ClassLibHejMorsan
             else if (Statementvalue == 1)
             {
                 System.Console.WriteLine("Press Q and Enter to return to the menu");
-                if (CheckIfInputIsQuit(name.ToUpper()))
-                {
-                    return;
-                }
             }
 
 
@@ -293,10 +291,12 @@ namespace ClassLibHejMorsan
             {
                 System.Console.Write("Enter Name: ");
                 name = Console.ReadLine();
+                if (CheckIfInputIsQuit(name.ToUpper()))
+                {
+                    return;
+                }
                 //Checks if input is Q
-                CheckIfInputIsQuit(name.ToUpper());
-
-                if (name.Length <= 50 && name.Length > 1)
+                else if (name.Length <= 50 && name.Length > 1)
                 {
                     break;
                 }
